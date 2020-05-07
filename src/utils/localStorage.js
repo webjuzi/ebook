@@ -82,27 +82,35 @@ export function getReadTime(fileName) {
 export function saveReadTime(fileName, theme) {
   setBookObject(fileName, 'time', theme)
 }
-
+// 获取封面图片
+export function getCover(fileName) {
+  return getBookObject(fileName, 'cover')
+}
+// 保存封面图片
+export function saveCover(fileName, cover) {
+  setBookObject(fileName, 'cover', cover)
+}
+// 获取书签
 export function getBookmark(fileName) {
   return getBookObject(fileName, 'bookmark')
 }
-
+// 保存书签
 export function saveBookmark(fileName, bookmark) {
   setBookObject(fileName, 'bookmark', bookmark)
 }
-
+// 获取目录
 export function getProgress(fileName) {
   return getBookObject(fileName, 'progress')
 }
-
+// 保存目录
 export function saveProgress(fileName, progress) {
   setBookObject(fileName, 'progress', progress)
 }
-
+// 获取目录
 export function getNavigation(fileName) {
   return getBookObject(fileName, 'navigation')
 }
-
+// 保存目录
 export function saveNavigation(fileName, navigation) {
   setBookObject(fileName, 'navigation', navigation)
 }
@@ -113,12 +121,4 @@ export function getMetadata(fileName) {
 
 export function saveMetadata(fileName, metadata) {
   setBookObject(fileName, 'metadata', metadata)
-}
-
-export function getCover(fileName) {
-  return getBookObject(fileName, 'cover')
-}
-
-export function saveCover(fileName, cover) {
-  setBookObject(fileName, 'cover', cover)
 }

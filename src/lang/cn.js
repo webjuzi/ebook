@@ -133,8 +133,8 @@ const messages = {
     loading: '加载中...',
     navigation: '目录',
     bookmark: '书签',
-    searchHint: '搜索全书内容',
-    haveRead2: '已读',
+    searchHint: '搜索全书内容(Enter)',
+    haveRead2: '进度',
     minutes: '分钟',
     cancel: '取消',
     paginating: '分页中...'

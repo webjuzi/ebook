@@ -1,6 +1,12 @@
 <template>
   <div class="ebook-reader">
     <div id="read"></div>
+    <div class="ebook-reader-mask"
+    @click="onMaskClick"
+    @touchmove="move"
+    @touchend="moveEnd"
+    @touchstart="touchStart"
+    ></div>
   </div>
 </template>
 
@@ -12,11 +18,58 @@ import {
   getTheme, saveTheme,
   getLocation
   } from '../../utils/localStorage'
+import { flatten } from '../../utils/book'
 import Epub from 'epubjs'
 global.ePub = Epub
 export default {
   mixins: [ebookMixin],
+  data () {
+    return {
+      startX: 0
+    }
+  },
   methods: {
+    touchStart(e) {
+      this.startX = e.changedTouches[0].pageX
+    },
+    onMaskClick(e) {
+      // console.log(e)
+      const width = window.innerWidth
+      const offsetX = e.offsetX
+      if (offsetX > 0 && offsetX < width * 0.4) {
+        this.prevPage()
+      } else if (offsetX > 0 && offsetX > width * 0.6) {
+        this.nextPage()
+      } else {
+        this.taggleTitleAndMenu()
+      }
+    },
+    move(e) {
+      // console.log(e)
+      let offsetY = 0
+      if (this.firstOffserY) {
+        offsetY = e.changedTouches[0].clientY - this.firstOffserY
+        this.setOffsetY(offsetY)
+        // console.log(offsetY)
+      } else {
+        this.firstOffserY = e.changedTouches[0].clientY
+      }
+      e.preventDefault()
+      e.stopPropagation()
+    },
+    moveEnd(e) {
+      // console.log(e, 'end')
+      this.setOffsetY(0)
+      this.firstOffserY = null
+      this.endX = e.changedTouches[0].pageX
+      const moveX = this.endX - this.startX
+      // console.log(moveX)
+      if (moveX > 40) {
+        this.prevPage()
+      } else if (moveX < -40) {
+        this.nextPage()
+      }
+    },
     prevPage() {
       if (this.rendition) {
         this.rendition.prev().then(() => {
@@ -39,12 +92,6 @@ export default {
         this.setFontFamilyVisible(false)
       }
       this.setMenuVisible(!this.menuVisible)
-    },
-    hideTitleAndMenu() {
-      // this.$store.dispatch('setMenuVisible', false)
-      this.setMenuVisible(false)
-      this.setSettingVisible(-1)
-      this.setFontFamilyVisible(false)
     },
     initFontFamily() {
       const font = getFontFamily(this.fileName)
@@ -98,23 +145,47 @@ export default {
         ]).then(() => {})
       })
     },
-    initGesture() {
-      this.rendition.on('touchstart', event => {
-        this.touchStartX = event.changedTouches[0].clientX
-        this.touchStartTime = event.timeStamp
+    // initGesture() {
+    //   const clientHeight = document.body.clientHeight / 10
+    //   this.rendition.on('touchstart', event => {
+    //     this.touchStartX = event.changedTouches[0].clientX
+    //     this.touchStartY = event.changedTouches[0].clientY
+    //     this.touchStartTime = event.timeStamp
+    //   })
+    //   this.rendition.on('touchend', event => {
+    //     const offsetX = event.changedTouches[0].clientX - this.touchStartX
+    //     const time = event.timeStamp - this.touchStartTime
+    //     if ((offsetX > 40 || this.touchStartY < clientHeight * 4) && time < 2000) {
+    //       this.prevPage()
+    //     } else if ((offsetX < -40 || this.touchStartY > clientHeight * 6) && time < 2000) {
+    //       this.nextPage()
+    //     } else {
+    //       this.taggleTitleAndMenu()
+    //     }
+    //     event.preventDefault()
+    //     event.stopPropagation()
+    //   })
+    // },
+    parseBook() {
+      this.book.loaded.cover.then(cover => {
+        // console.log(cover)
+        this.book.archive.createUrl(cover).then(url => {
+          this.setCover(url)
+          // console.log(url)
+        })
       })
-      this.rendition.on('touchend', event => {
-        const offsetX = event.changedTouches[0].clientX - this.touchStartX
-        const time = event.timeStamp - this.touchStartTime
-        if (time < 5000 && offsetX > 40) {
-          this.prevPage()
-        } else if (time < 5000 && offsetX < -40) {
-          this.nextPage()
-        } else {
-          this.taggleTitleAndMenu()
+      this.book.loaded.metadata.then(metadata => {
+        this.setMetadata(metadata)
+      })
+      this.book.loaded.navigation.then(nav => {
+        const navItem = flatten(nav.toc)
+        function find(item, level = 0) {
+          return !item.parent ? level : find(navItem.filter(parentItem => parentItem.id === item.parent)[0], ++level)
         }
-        event.preventDefault()
-        event.stopPropagation()
+        navItem.forEach(item => {
+          item.level = find(item)
+        })
+        this.setNavigation(navItem)
       })
     },
     initEpub() {
@@ -122,7 +193,8 @@ export default {
       this.book = new Epub(url)
       this.setCurrentBook(this.book)
       this.initRendition()
-      this.initGesture()
+      // this.initGesture()
+      this.parseBook()
       this.book.ready.then(() => {
         return this.book.locations.generate(750 * (window.innerWidth / 375) * (getFontSize(this.fileName) / 16))
       }).then(locations => {
@@ -142,5 +214,19 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
-@import "../../assets/styles/global"
+@import "../../assets/styles/global";
+.ebook-reader{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .ebook-reader-mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 150;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+  }
+}
 </style>

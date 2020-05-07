@@ -31,19 +31,20 @@
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
-import { getReadTime } from '../../utils/localStorage'
+
 export default {
   mixins: [ebookMixin],
   computed: {
     getSectionName() {
-      if (this.section) {
-        const sectionInfo = this.currentBook.section(this.section)
-        if (sectionInfo && sectionInfo.href) {
-          return this.currentBook.navigation.get(sectionInfo.href).label
-          // console.log(this.currentBook.navigation.get(sectionInfo.href))
-        }
-      }
-      return ''
+      // if (this.section) {
+      //   const sectionInfo = this.currentBook.section(this.section)
+      //   if (sectionInfo && sectionInfo.href && this.currentBook && this.currentBook.navigation) {
+      //     return this.currentBook.navigation.get(sectionInfo.href).label
+      //     // console.log(this.currentBook.navigation.get(sectionInfo.href))
+      //   }
+      // }
+      // return ''
+      return this.section ? this.navigation[this.section].label : ''
     }
   },
   methods: {
@@ -84,17 +85,6 @@ export default {
       const sectionInfo = this.currentBook.section(this.section)
       if (sectionInfo && sectionInfo.href) {
         this.display(sectionInfo.href)
-      }
-    },
-    gatReadTimeText() {
-      return this.$t('book.haveRead').replace('$1', this.getReadTimeByMinute())
-    },
-    getReadTimeByMinute() {
-      const readTime = getReadTime(this.fileName)
-      if (!readTime) {
-        return 0
-      } else {
-        return Math.ceil(readTime / 60)
       }
     }
   },
@@ -164,6 +154,7 @@ export default {
       width: 100%;
       color: #333;
       font-size: px2rem(12);
+      line-height: px2rem(14);
       box-sizing: border-box;
       @include center;
       .progress-section-text {

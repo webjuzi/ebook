@@ -1,3 +1,5 @@
+import { getReadTime } from './localStorage'
+
 export const FONT_SIZE_LIST = [
   { fontSize: 12 },
   { fontSize: 14 },
@@ -84,4 +86,17 @@ export function removeAllCss() {
   removeCss('http://111.229.20.115:5894/ebook/theme/theme_eye.css')
   removeCss('http://111.229.20.115:5894/ebook/theme/theme_gold.css')
   removeCss('http://111.229.20.115:5894/ebook/theme/theme_night.css')
+}
+
+export function getReadTimeByMinute(fileName) {
+  const readTime = getReadTime(fileName)
+  if (!readTime) {
+    return 0
+  } else {
+    return Math.ceil(readTime / 60)
+  }
+}
+
+export function flatten(array) {
+  return [].concat(...array.map(item => [].concat(item, ...flatten(item.subitems))))
 }
