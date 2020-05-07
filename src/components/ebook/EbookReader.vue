@@ -6,6 +6,9 @@
     @touchmove="move"
     @touchend="moveEnd"
     @touchstart="touchStart"
+    @mousedown.left="onMouseEnter"
+    @mousemove.left="onMouseMove"
+    @mouseup.left="onMouseUp"
     ></div>
   </div>
 </template>
@@ -29,10 +32,53 @@ export default {
     }
   },
   methods: {
+    onMouseEnter(e) {
+      // console.log(1, e)
+      this.mousetState = 1
+      this.mouseStarTime = e.timeStamp
+      e.preventDefault()
+      e.stopPropagation()
+    },
+    onMouseMove(e) {
+      // console.log(2, e)
+      if (this.mousetState === 1) {
+        this.mousetState = 2
+      } else if (this.mousetState === 2) {
+        let offsetY = 0
+        if (this.firstOffserY) {
+          offsetY = e.clientY - this.firstOffserY
+          this.setOffsetY(offsetY)
+          // console.log(offsetY)
+        } else {
+          this.firstOffserY = e.clientY
+        }
+      }
+      e.preventDefault()
+      e.stopPropagation()
+    },
+    onMouseUp(e) {
+      // console.log(3, e)
+      if (this.mousetState === 2) {
+        this.setOffsetY(0)
+        this.firstOffserY = null
+        this.mousetState = 3
+      } else {
+        this.mousetState = 4
+      }
+      const time = e.timeStamp - this.mouseStarTime
+      if (time < 150) {
+        this.mousetState = 4
+      }
+      e.preventDefault()
+      e.stopPropagation()
+    },
     touchStart(e) {
       this.startX = e.changedTouches[0].pageX
     },
     onMaskClick(e) {
+      if (this.mousetState && (this.mousetState === 2 || this.mousetState === 3)) {
+        return
+      }
       // console.log(e)
       const width = window.innerWidth
       const offsetX = e.offsetX
@@ -128,6 +174,7 @@ export default {
         width: innerWidth,
         height: innerHeight,
         method: 'default'
+        // flow: 'scrolled'
       })
       const location = getLocation(this.fileName)
       this.display(location, () => {

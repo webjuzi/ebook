@@ -19,8 +19,12 @@
         <img :src="cover" alt="" class="slide-conmtents-book-img">
       </div>
       <div class="slide-contents-book-info-wrapper">
-        <div class="slide-contents-book-title">{{metadata.title}}</div>
-        <div class="slide-contents-book-author">{{metadata.creator}}</div>
+        <div class="slide-contents-book-title">
+          <span class="slide-content-book-title-text">{{metadata.title}}</span>
+        </div>
+        <div class="slide-contents-book-author">
+          <span class="slide-content-book-author-text">{{metadata.creator}}</span>
+        </div>
       </div>
       <div class="slide-contents-book-progress-warpper">
         <div class="slide-conytents-book-progress">
@@ -165,16 +169,23 @@ export default {
       padding: 0 px2rem(10);
       box-sizing: border-box;
       .slide-contents-book-title{
-        width: px2rem(153.75);
+        // width: px2rem(153.75);
         font-size: px2rem(14);
         line-height: px2rem(16);
-        @include ellipsis2(2);
+        @include left;
+        .slide-content-book-title-text {
+          @include ellipsis2(2);
+        }
       }
       .slide-contents-book-author{
         font-size: px2rem(12);
-        width: px2rem(153.75);
+        // width: px2rem(153.75);
+        line-height: px2rem(14);
         margin-top: px2rem(5);
-        @include ellipsis;
+        @include left;
+        .slide-content-book-author-text {
+        @include ellipsis2(1);
+        }
       }
     }
     .slide-contents-book-progress-warpper{

@@ -7,7 +7,7 @@
       <div class="ebook-bookmark-text">{{text}}</div>
     </div>
     <div class="ebook-bookmark-icon-wrapper" :style="isFixed ? fixedStyle : {}">
-      <bookmark :color="color" :width="20" :height="40"></bookmark>
+      <bookmark :color="color" :width="20" :height="30"></bookmark>
     </div>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
   data () {
     return {
       text: '',
-      color: 'white',
+      color: '#ffffff',
       isFixed: false
     }
   },
@@ -121,25 +121,22 @@ export default {
         this.isFixed = true
       } else {
         this.text = this.$t('book.pulldownAddMark')
-        this.color = 'white'
+        this.color = '#ffffff'
         this.isFixed = false
       }
     },
     beforeThreshold(v) {
       this.$refs.bookmark.style.top = `${-v}px`
-      if (v >= 50) {
-        this.$refs.bookmark.style.top = `${-70}px`
-      }
       this.beforeHeight()
     },
     afterThreshold(v) {
       if (v >= 70) {
-        v = 70
+        v = 100
       }
       this.$refs.bookmark.style.top = `${-v}px`
       if (this.isBookmark) {
-        this.text = this.$t('book.pulldownDeleteMark')
-        this.color = 'white'
+        this.text = this.$t('book.releaseDeleteMark')
+        this.color = '#ffffff'
         this.isFixed = false
       } else {
         this.text = this.$t('book.releaseAddMark')
@@ -158,7 +155,6 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
 @import "../../assets/styles/global";
 .ebook-bookmark{
-  background-color: #777777;
   position: absolute;
   top: px2rem(-70);
   left: 0;
@@ -172,13 +168,13 @@ export default {
     display: flex;
     .ebook-bookmark-down-wrapper{
       font-size: px2rem(16);
-      color: #ffffff;
+      color: #000000;
       transition: all .2s linear;
       @include center;
     }
     .ebook-bookmark-text{
       font-size: px2rem(16);
-      color: #ffffff;
+      color: #000000;
     }
   }
   .ebook-bookmark-icon-wrapper{

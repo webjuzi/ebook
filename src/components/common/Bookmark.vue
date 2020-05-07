@@ -39,7 +39,7 @@ export default {
 .bookmark {
   width: 0;
   height: 0;
-  border-width: px2rem(40) px2rem(10) px2rem(10) px2rem(10);
+  border-width: px2rem(30) px2rem(10) px2rem(10) px2rem(10);
   border-style: solid;
   border-color: #ffffff #ffffff transparent #ffffff;
 }
