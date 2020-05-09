@@ -7,6 +7,14 @@ $ratio: 375/ 10;
   justify-content: center;
   align-items: center;
 }
+@mixin absCenter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
 @mixin left {
   display: flex;
   justify-content: flex-start;
@@ -16,6 +24,18 @@ $ratio: 375/ 10;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+@mixin columnTop {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+@mixin columnLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 @mixin ellipsis {
   text-overflow: ellipsis;
@@ -31,4 +51,15 @@ $ratio: 375/ 10;
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: keep-all;
+}
+
+.icon {
+  color: #666;
+  font-size: px2rem(16);
+}
+
+.title {
+  color: #666;
+  font-size: px2rem(16);
+  font-weight: 700;
 }
