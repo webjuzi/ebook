@@ -15,6 +15,11 @@ $ratio: 375/ 10;
   right: 0;
   margin: auto;
 }
+@mixin top {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 @mixin left {
   display: flex;
   justify-content: flex-start;
@@ -23,6 +28,12 @@ $ratio: 375/ 10;
 @mixin right {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+}
+@mixin columnCenter{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 @mixin columnTop {

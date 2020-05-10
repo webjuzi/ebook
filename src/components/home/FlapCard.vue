@@ -177,10 +177,8 @@ export default {
         this.runBookCardAnimation = true
       }, 2500)
     },
-    showBookDetail(book) {},
     categoryText() {
       if (this.data) {
-        console.log(this.data)
         return categoryText(this.data.category, this)
       } else {
         return ''
