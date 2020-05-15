@@ -91,10 +91,10 @@ export function removeCss(href) {
 }
 
 export function removeAllCss() {
-  removeCss('http://111.229.20.115:5894/ebook/theme/theme_default.css')
-  removeCss('http://111.229.20.115:5894/ebook/theme/theme_eye.css')
-  removeCss('http://111.229.20.115:5894/ebook/theme/theme_gold.css')
-  removeCss('http://111.229.20.115:5894/ebook/theme/theme_night.css')
+  removeCss('juzi/ebook/theme/theme_default.css')
+  removeCss('juzi/ebook/theme/theme_eye.css')
+  removeCss('juzi/ebook/theme/theme_gold.css')
+  removeCss('juzi/ebook/theme/theme_night.css')
 }
 
 export function getReadTimeByMinute(fileName) {

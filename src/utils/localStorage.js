@@ -9,13 +9,22 @@ export function getLocalStorage(key) {
   return localStorage.get(key)
 }
 
-export function removeLocalStorag(key) {
+export function removeLocalStorage(key) {
   return localStorage.delete(key)
 }
 
-export function clearLocalStorag() {
+export function clearLocalStorage() {
   return localStorage.clear()
 }
+
+export function saveBookShelf(shelf) {
+  return setLocalStorage('shelf', shelf)
+}
+
+export function getBookShelf() {
+  return getLocalStorage('shelf')
+}
+
 // 设置
 export function setBookObject(fileName, key, value) {
   let book = getLocalStorage(`${fileName}-info`)

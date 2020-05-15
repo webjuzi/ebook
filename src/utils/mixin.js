@@ -1,6 +1,8 @@
 import { mapGetters, mapActions } from 'vuex'
 import { themeList, addCss, removeAllCss, getReadTimeByMinute } from './book'
-import { saveLocation, getBookmark } from './localStorage'
+import { saveLocation, getBookmark, getBookShelf, saveBookShelf } from './localStorage'
+import { gotoBookDetail, appendAddToShelf } from './store'
+import { shelf } from '../api/store'
 
 export const ebookMixin = {
   computed: {
@@ -66,19 +68,19 @@ export const ebookMixin = {
       removeAllCss()
       switch (this.defaultTheme) {
         case 'Default':
-          addCss('http://111.229.20.115:5894/ebook/theme/theme_default.css')
+          addCss('/juzi/ebook/theme/theme_default.css')
           break
         case 'Eye':
-          addCss('http://111.229.20.115:5894/ebook/theme/theme_eye.css')
+          addCss('/juzi/ebook/theme/theme_eye.css')
           break
         case 'Gold':
-          addCss('http://111.229.20.115:5894/ebook/theme/theme_gold.css')
+          addCss('/juzi/ebook/theme/theme_gold.css')
           break
         case 'Night':
-          addCss('http://111.229.20.115:5894/ebook/theme/theme_night.css')
+          addCss('/juzi/ebook/theme/theme_night.css')
           break
         default:
-          addCss('http://111.229.20.115:5894/ebook/theme/theme_default.css')
+          addCss('/juzi/ebook/theme/theme_default.css')
           break
       }
     },
@@ -143,12 +145,54 @@ export const storeHomeMixin = {
       'setFlapCardVisible'
     ]),
     showBookDetail(book) {
-      this.$router.push({
-        path: '/store/detail',
-        query: {
-          fileName: book.fileName,
-          category: book.categoryText
-        }
+      gotoBookDetail(this, book)
+    }
+  }
+}
+
+export const storeShelfMixin = {
+  computed: {
+    ...mapGetters([
+      'isEditMode',
+      'shelfList',
+      'shelfSelected',
+      'shelfTitleVisible',
+      'offsetY',
+      'shelfCategory',
+      'currentType'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'setIsEditMode',
+      'setShelfList',
+      'setShelfSelected',
+      'setShelfTitleVisible',
+      'setOffsetY',
+      'setShelfCategory',
+      'setCurrentType'
+    ]),
+    showBookDetail(book) {
+      gotoBookDetail(this, book)
+    },
+    getShelfList() {
+      let shelfList = getBookShelf()
+      if (!shelfList) {
+        shelf().then(response => {
+          if (response.status === 200 && response.data && response.data.bookList) {
+            shelfList = appendAddToShelf(response.data.bookList)
+            saveBookShelf(shelfList)
+            return this.setShelfList(shelfList)
+          }
+        })
+      } else {
+        return this.setShelfList(shelfList)
+      }
+    },
+    getCategoryList(title) {
+      this.getShelfList().then(() => {
+        const categoryList = this.shelfList.filter(book => book.type === 2 && book.title === title)[0]
+        this.setShelfCategory(categoryList)
       })
     }
   }

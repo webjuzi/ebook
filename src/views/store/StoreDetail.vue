@@ -176,13 +176,12 @@
               path: `/ebook/${this.categoryText}|${this.bookItem.fileName}`
             })
           } else {
-            // this.showToast(this.$t('shelf.downloadFirst'))
-            // console.log(this.bookItem.fileName)
+            this.showToast(this.$t('shelf.downloadFirst'))
             this.$router.push({
-              // path: `/ebook/${this.bookItem.fileName}`,
               path: `/ebook/${this.categoryText}|${this.bookItem.fileName}`
+              // path: `/ebook/${this.bookItem.fileName}`,
               // query: {
-                // opf: this.opf
+              //   opf: this.opf
               // }
             })
           }
@@ -215,7 +214,7 @@
             this.$router.push({
               // path: `/ebook/${this.bookItem.fileName}`,
               // query: {
-                // navigation: item.href
+              //   navigation: item.href
               // }
               path: `/ebook/${this.categoryText}|${this.bookItem.fileName}`
             })
@@ -224,8 +223,8 @@
             this.$router.push({
               // path: `/ebook/${this.bookItem.fileName}`,
               // query: {
-                // navigation: item.href,
-                // opf: this.opf
+              //   navigation: item.href,
+              //   opf: this.opf
               // }
               path: `/ebook/${this.categoryText}|${this.bookItem.fileName}`
             })
@@ -264,7 +263,7 @@
         }
       },
       downloadBook() {
-        const opf = `${process.env.VUE_APP_EPUB_URL}/${this.bookItem.categoryText}/${this.bookItem.fileName}/OEBPS/package.opf`
+        const opf = `http://47.99.166.157/epub2/${this.bookItem.categoryText}/${this.bookItem.fileName}/OEBPS/package.opf`
         this.parseBook(opf)
       },
       parseBook(blob) {
@@ -294,7 +293,6 @@
             const bookList = response.data.data.filter(item => item.fileName === fileName)
             if (bookList && bookList.length > 0) {
               this.bookItem = bookList[0]
-              console.log(this.bookItem)
               this.initBook()
             }
           }

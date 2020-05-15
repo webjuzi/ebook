@@ -23,6 +23,7 @@ import {
   } from '../../utils/localStorage'
 import { flatten } from '../../utils/book'
 import Epub from 'epubjs'
+import { getLocalForage } from '../../utils/localForage'
 global.ePub = Epub
 export default {
   mixins: [ebookMixin],
@@ -185,10 +186,10 @@ export default {
       })
       this.rendition.hooks.content.register(contents => {
         Promise.all([
-            contents.addStylesheet('http://111.229.20.115:5894/ebook/fonts/daysOne.css'),
-            contents.addStylesheet('http://111.229.20.115:5894/ebook/fonts/cabin.css'),
-            contents.addStylesheet('http://111.229.20.115:5894/ebook/fonts/montserrat.css'),
-            contents.addStylesheet('http://111.229.20.115:5894/ebook/fonts/tangerine.css')
+          contents.addStylesheet('/juzi/ebook/fonts/daysOne.css'),
+          contents.addStylesheet('/juzi/ebook/fonts/cabin.css'),
+          contents.addStylesheet('/juzi/ebook/fonts/montserrat.css'),
+          contents.addStylesheet('/juzi/ebook/fonts/tangerine.css')
         ]).then(() => {})
       })
     },
@@ -235,8 +236,7 @@ export default {
         this.setNavigation(navItem)
       })
     },
-    initEpub() {
-      const url = 'http://111.229.20.115:5894/ebook/epub/' + this.fileName + '.epub'
+    initEpub(url) {
       this.book = new Epub(url)
       this.setCurrentBook(this.book)
       this.initRendition()
@@ -252,9 +252,22 @@ export default {
     }
   },
   mounted() {
-    const fileName = this.$route.params.fileName.split('|').join('/')
-    this.setFileName(fileName).then(() => {
-      this.initEpub()
+    const books = this.$route.params.fileName.split('|')
+    const fileName1 = books[1]
+    getLocalForage(fileName1, (err, blob) => {
+      if (!err && blob) {
+        // console.log('离线获取电子书')
+        this.setFileName(books.join('/')).then(() => {
+          this.initEpub(blob)
+        })
+      } else {
+        // console.log('在线获取电子书')
+        const fileName = this.$route.params.fileName.split('|').join('/')
+        this.setFileName(fileName).then(() => {
+          const url = '/juzi/ebook/epub/' + this.fileName + '.epub'
+          this.initEpub(url)
+        })
+      }
     })
   }
 }

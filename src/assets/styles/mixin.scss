@@ -64,6 +64,15 @@ $ratio: 375/ 10;
   word-break: keep-all;
 }
 
+@mixin scroll {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .icon {
   color: #666;
   font-size: px2rem(16);
