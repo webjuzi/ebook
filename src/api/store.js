@@ -1,5 +1,13 @@
 import axios from 'axios'
 import { setLocalForage } from '../utils/localForage'
+import { getCategoryName } from '../utils/store'
+
+export function flatList() {
+  return axios({
+    method: 'get',
+    url: 'http://47.99.166.157:3000/book/flat-list'
+  })
+}
 
 export function home() {
   return axios({
@@ -55,4 +63,40 @@ export function download(book, onSuccess, onError, onProgress) {
   }).catch(err => {
     if (onError) onError(err)
   })
+}
+
+export function downloadMp3(url, cb, cb2) {
+  axios.create({
+    baseURL: url,
+    method: 'get',
+    responseType: 'blob',
+    timeout: 30 * 1000,
+    onDownloadProgress: progressEvent => {
+      console.log(progressEvent)
+    }
+  }).get().then(response => {
+    const blob = new Blob([response.data])
+    if (cb) cb(blob)
+  }).catch(err => {
+    if (cb2) cb2(err)
+  })
+}
+
+export function downloadWithoutCache(item, cb, cb2, cb3) {
+  axios.create({
+    baseURL: process.env.VUE_APP_EPUB_URL,
+    method: 'get',
+    responseType: 'blob',
+    timeout: 30 * 1000,
+    onDownloadProgress: progressEvent => {
+      if (cb3) cb3(progressEvent)
+    }
+  }).get(`${getCategoryName(item.category)}/${item.fileName}.epub`)
+    .then(res => {
+      const blob = new Blob([res.data])
+      if (cb) cb(blob)
+    })
+    .catch(err => {
+      if (cb2) cb2(err)
+    })
 }

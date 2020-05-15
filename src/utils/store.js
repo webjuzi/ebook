@@ -1,3 +1,38 @@
+import { getLocalStorage, setLocalStorage } from './localStorage'
+
+export function flatBookList(bookList) {
+  if (bookList) {
+    let orgBookList = bookList.filter(item => {
+      return item.type !== 3
+    })
+    const categoryList = bookList.filter(item => {
+      return item.type === 2
+    })
+    categoryList.forEach(item => {
+      const index = orgBookList.findIndex(v => {
+        return v.id === item.id
+      })
+      if (item.itemList) {
+        item.itemList.forEach(subItem => {
+          orgBookList.splice(index, 0, subItem)
+        })
+      }
+    })
+    orgBookList.forEach((item, index) => {
+      item.id = index + 1
+    })
+    orgBookList = orgBookList.filter(item => item.type !== 2)
+    return orgBookList
+  } else {
+    return []
+  }
+}
+
+export function findBook(fileName) {
+  const bookList = getLocalStorage('shelf')
+  return flatBookList(bookList).find(item => item.fileName === fileName)
+}
+
 export const flapCardList = [
   {
     r: 255,
@@ -205,4 +240,44 @@ export function gotoBookDetail(vue, book) {
       category: book.categoryText
     }
   })
+}
+
+const BOOK_SHELF_KEY = 'shelf'
+
+export function addToShelf(book) {
+  let bookList = getLocalStorage(BOOK_SHELF_KEY)
+  bookList = clearAddFromBookList(bookList)
+  book.type = 1
+  bookList.push(book)
+  bookList.forEach((item, index) => {
+    item.id = index + 1
+  })
+  appendAddToBookList(bookList)
+  setLocalStorage(BOOK_SHELF_KEY, bookList)
+}
+
+export function appendAddToBookList(bookList) {
+  bookList.push({
+    cover: '',
+    title: '',
+    type: 3,
+    id: Number.MAX_SAFE_INTEGER
+  })
+}
+
+export function clearAddFromBookList(bookList) {
+  return bookList.filter(item => {
+    return item.type !== 3
+  })
+}
+
+export function removeFromBookShelf(bookItem) {
+  let bookList = getLocalStorage(BOOK_SHELF_KEY)
+  bookList = bookList.filter(item => {
+    if (item.itemList) {
+      item.itemList = item.itemList.filter(subItem => subItem.fileName !== bookItem.fileName)
+    }
+    return item.fileName !== bookItem.fileName
+  })
+  setLocalStorage(BOOK_SHELF_KEY, bookList)
 }

@@ -6,10 +6,10 @@
       </div>
       <div class="right">
         <div class="icon-wrapper">
-          <span class="icon-shelf"></span>
+          <span class="icon-shelf" @click="shelf"></span>
         </div>
         <div class="icon-wrapper">
-          <span class="icon-cart"></span>
+          <span class="icon-cart" @click="cart"></span>
         </div>
         <div class="icon-wrapper">
           <span class="icon-more"></span>
@@ -26,6 +26,12 @@ export default {
   methods: {
     back() {
       this.$router.go(-1)
+    },
+    shelf() {
+      this.$router.push('/store/home')
+    },
+    cart() {
+      this.$router.push('/store/shelf')
     }
   }
 }

@@ -78,7 +78,7 @@
   import DetailInfo from '@/components/detail/DetailInfo'
   import Scroll from '@/components/common/Scroll'
   import Toast from '@/components/common/Toast'
-  import { removeFromBookShelf, addToShelf } from '@/utils/book'
+  import { removeFromBookShelf, addToShelf } from '@/utils/store'
   import { flatList, detail } from '@/api/store'
   import { px2rem, realPx } from '@/utils/utils'
   import { getLocalForage } from '@/utils/localForage'
@@ -125,6 +125,7 @@
         return this.metadata ? this.metadata.creator : ''
       },
       inBookShelf() {
+        console.log(this.bookShelf)
         if (this.bookItem && this.bookShelf) {
           const flatShelf = (function flatten(arr) {
             return [].concat(...arr.map(v => v.itemList ? [v, ...flatten(v.itemList)] : v))
@@ -157,6 +158,7 @@
     },
     methods: {
       addOrRemoveShelf() {
+        console.log(this.inBookShelf)
         if (this.inBookShelf) {
           removeFromBookShelf(this.bookItem)
         } else {
@@ -191,7 +193,7 @@
         getLocalForage(this.bookItem.fileName, (err, value) => {
           if (!err && value instanceof Blob) {
             this.$router.push({
-              path: '/book-store/book-speaking',
+              path: '/store/speaking',
               query: {
                 fileName: this.bookItem.fileName
               }
@@ -199,7 +201,7 @@
           } else {
             // this.showToast(this.$t('shelf.downloadFirst'))
             this.$router.push({
-              path: '/book-store/book-speaking',
+              path: '/store/speaking',
               query: {
                 fileName: this.bookItem.fileName,
                 opf: this.opf
