@@ -68,19 +68,19 @@ export const ebookMixin = {
       removeAllCss()
       switch (this.defaultTheme) {
         case 'Default':
-          addCss('/juzi/ebook/theme/theme_default.css')
+          addCss('http://111.229.20.115:5894/ebook/theme/theme_default.css')
           break
         case 'Eye':
-          addCss('/juzi/ebook/theme/theme_eye.css')
+          addCss('http://111.229.20.115:5894/ebook/theme/theme_eye.css')
           break
         case 'Gold':
-          addCss('/juzi/ebook/theme/theme_gold.css')
+          addCss('http://111.229.20.115:5894/ebook/theme/theme_gold.css')
           break
         case 'Night':
-          addCss('/juzi/ebook/theme/theme_night.css')
+          addCss('http://111.229.20.115:5894/ebook/theme/theme_night.css')
           break
         default:
-          addCss('/juzi/ebook/theme/theme_default.css')
+          addCss('http://111.229.20.115:5894/ebook/theme/theme_default.css')
           break
       }
     },

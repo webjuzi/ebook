@@ -186,10 +186,10 @@ export default {
       })
       this.rendition.hooks.content.register(contents => {
         Promise.all([
-          contents.addStylesheet('/juzi/ebook/fonts/daysOne.css'),
-          contents.addStylesheet('/juzi/ebook/fonts/cabin.css'),
-          contents.addStylesheet('/juzi/ebook/fonts/montserrat.css'),
-          contents.addStylesheet('/juzi/ebook/fonts/tangerine.css')
+          contents.addStylesheet('http://111.229.20.115:5894/ebook/fonts/daysOne.css'),
+          contents.addStylesheet('http://111.229.20.115:5894/ebook/fonts/cabin.css'),
+          contents.addStylesheet('http://111.229.20.115:5894/ebook/fonts/montserrat.css'),
+          contents.addStylesheet('http://111.229.20.115:5894/ebook/fonts/tangerine.css')
         ]).then(() => {})
       })
     },
@@ -264,7 +264,7 @@ export default {
         // console.log('在线获取电子书')
         const fileName = this.$route.params.fileName.split('|').join('/')
         this.setFileName(fileName).then(() => {
-          const url = '/juzi/ebook/epub/' + this.fileName + '.epub'
+          const url = 'http://111.229.20.115:5894/ebook/epub/' + this.fileName + '.epub'
           this.initEpub(url)
         })
       }

@@ -74,6 +74,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { storeShelfMixin } from '../../utils/mixin'
   import DetailTitle from '@/components/detail/DetailTitle'
   import DetailInfo from '@/components/detail/DetailInfo'
   import Scroll from '@/components/common/Scroll'
@@ -82,12 +83,13 @@
   import { flatList, detail } from '@/api/store'
   import { px2rem, realPx } from '@/utils/utils'
   import { getLocalForage } from '@/utils/localForage'
-  import { getLocalStorage } from '@/utils/localStorage'
+  import { getLocalStorage, getBookShelf } from '@/utils/localStorage'
   import Epub from 'epubjs'
 
   global.ePub = Epub
 
   export default {
+    mixins: [storeShelfMixin],
     components: {
       DetailTitle,
       DetailInfo,
@@ -125,11 +127,10 @@
         return this.metadata ? this.metadata.creator : ''
       },
       inBookShelf() {
-        console.log(this.bookShelf)
-        if (this.bookItem && this.bookShelf) {
+        if (this.bookItem && this.shelfList) {
           const flatShelf = (function flatten(arr) {
             return [].concat(...arr.map(v => v.itemList ? [v, ...flatten(v.itemList)] : v))
-          })(this.bookShelf).filter(item => item.type === 1)
+          })(this.shelfList).filter(item => item.type === 1)
           const book = flatShelf.filter(item => item.fileName === this.bookItem.fileName)
           return book && book.length > 0
         } else {
@@ -158,35 +159,34 @@
     },
     methods: {
       addOrRemoveShelf() {
-        console.log(this.inBookShelf)
         if (this.inBookShelf) {
           removeFromBookShelf(this.bookItem)
         } else {
           addToShelf(this.bookItem)
         }
-        this.bookShelf = getLocalStorage('bookShelf')
+        this.setShelfList(getBookShelf())
       },
       showToast(text) {
         this.toastText = text
         this.$refs.toast.show()
       },
       readBook() {
-        getLocalForage(this.bookItem.fileName, (err, value) => {
-          if (!err && value instanceof Blob) {
+        // getLocalForage(this.bookItem.fileName, (err, value) => {
+          // if (!err && value instanceof Blob) {
             this.$router.push({
               // path: `/ebook/${this.bookItem.fileName}`
               path: `/ebook/${this.categoryText}|${this.bookItem.fileName}`
-            })
-          } else {
-            this.showToast(this.$t('shelf.downloadFirst'))
-            this.$router.push({
-              path: `/ebook/${this.categoryText}|${this.bookItem.fileName}`
-              // path: `/ebook/${this.bookItem.fileName}`,
-              // query: {
-              //   opf: this.opf
-              // }
-            })
-          }
+          //   })
+          // } else {
+          //   this.showToast(this.$t('shelf.downloadFirst'))
+          //   this.$router.push({
+          //     path: `/ebook/${this.categoryText}|${this.bookItem.fileName}`
+          //     // path: `/ebook/${this.bookItem.fileName}`,
+          //     // query: {
+          //     //   opf: this.opf
+          //     // }
+          //   })
+          // }
         })
       },
       trialListening() {
@@ -353,6 +353,9 @@
     },
     mounted() {
       this.init()
+      if (!this.getShelfList || this.getShelfList.length === 0) {
+        this.getShelfList()
+      }
     }
   }
 </script>

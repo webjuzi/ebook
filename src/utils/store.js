@@ -246,7 +246,7 @@ const BOOK_SHELF_KEY = 'shelf'
 
 export function addToShelf(book) {
   let bookList = getLocalStorage(BOOK_SHELF_KEY)
-  bookList = clearAddFromBookList(bookList)
+  bookList = removeAddFormShelf(bookList)
   book.type = 1
   bookList.push(book)
   bookList.forEach((item, index) => {
@@ -262,12 +262,6 @@ export function appendAddToBookList(bookList) {
     title: '',
     type: 3,
     id: Number.MAX_SAFE_INTEGER
-  })
-}
-
-export function clearAddFromBookList(bookList) {
-  return bookList.filter(item => {
-    return item.type !== 3
   })
 }
 

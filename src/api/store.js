@@ -12,21 +12,21 @@ export function flatList() {
 export function home() {
   return axios({
     method: 'get',
-    url: '/localhost/book/home/'
+    url: 'http://47.99.166.157:3000/book/home/'
   })
 }
 
 export function list() {
   return axios({
     method: 'get',
-    url: '/localhost/book/list/'
+    url: '/juzi/ebook/book/list/'
   })
 }
 
 export function shelf() {
   return axios({
     method: 'get',
-    url: '/localhost/book/shelf/'
+    url: 'http://47.99.166.157:3000/book/shelf/'
   })
 }
 
@@ -72,7 +72,6 @@ export function downloadMp3(url, cb, cb2) {
     responseType: 'blob',
     timeout: 30 * 1000,
     onDownloadProgress: progressEvent => {
-      console.log(progressEvent)
     }
   }).get().then(response => {
     const blob = new Blob([response.data])
