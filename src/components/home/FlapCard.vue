@@ -17,7 +17,7 @@
           <img :src="data ? data.cover : ''" alt="">
         </div>
         <div class="content-wrapper">
-          <div class="content-title">{{data ? data.title : ''}}</div>
+          <div class="content-title">{{data ? data.filename : ''}}</div>
           <div class="content-author sun-title-medium">{{data ? data.author : ''}}</div>
           <div class="content-category">{{categoryText()}}</div>
         </div>

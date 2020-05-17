@@ -52,6 +52,7 @@
       box-sizing: border-box;
       .detail-cover-title-wrapper {
         .cover-title-text {
+          @include ellipsis;
           font-size: px2rem(24);
           line-height: px2rem(26);
           font-weight: bold;
@@ -68,6 +69,8 @@
       }
       .detail-cover-description-wrapper {
         margin-top: px2rem(10);
+        width: px2rem(220);
+        @include ellipsis2(5);
         .detail-cover-description-text {
           font-size: px2rem(14);
           line-height: px2rem(16);

@@ -1,9 +1,12 @@
 <template>
   <div class="shelf-list" :style="{top: shelfListTop}">
+    <div class="shelf-list-notice">
+      <div class="shelf-list-notice-bg">{{$t('shelf.notice')}}</div>
+    </div>
     <div v-for="item in data" :key="item.id" class="shelf-list-item-wrapper" :style="{width: width}">
       <shelf-item :data="item" :style="{height: height}"></shelf-item>
       <div class="shelf-list-title-wrapper">
-        <span class="shelf-list-title title-small">{{item.title}}</span>
+        <span class="shelf-list-title title-small">{{item.fileName}}</span>
       </div>
     </div>
   </div>
@@ -67,12 +70,28 @@ export default {
   flex-flow: row wrap;
   padding: 0 px2rem(15);
   box-sizing: border-box;
+  .shelf-list-notice{
+    width: 100%;
+    height: px2rem(20);
+    font-size: px2rem(10);
+    font-weight: 700;
+    @include ellipsis2(1);
+    @include center;
+    .shelf-list-notice-bg {
+      border: px2rem(1) solid orange;
+      height: px2rem(15);
+      padding: px2rem(2) px2rem(15);
+      line-height: px2rem(15);
+      border-radius: px2rem(10);
+    }
+  }
   .shelf-list-item-wrapper{
     padding: px2rem(15);
     box-sizing: border-box;
   }
   .shelf-list-title-wrapper{
     margin-top: px2rem(10);
+    @include center;
   }
 }
 </style>

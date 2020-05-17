@@ -94,124 +94,59 @@ export const flapCardList = [
 export function getCategoryName(id) {
   switch (id) {
     case 1:
-      return 'ComputerScience'
+      return '都市'
     case 2:
-      return 'SocialSciences'
+      return '玄幻修仙'
     case 3:
-      return 'Economics'
+      return '言情'
     case 4:
-      return 'Education'
+      return '武侠'
     case 5:
-      return 'Engineering'
+      return '科幻'
     case 6:
-      return 'Environment'
+      return '历史'
     case 7:
-      return 'Geography'
+      return '游戏'
     case 8:
-      return 'History'
+      return '灵异'
     case 9:
-      return 'Laws'
-    case 10:
-      return 'LifeSciences'
-    case 11:
-      return 'Literature'
-    case 12:
-      return 'Biomedicine'
-    case 13:
-      return 'BusinessandManagement'
-    case 14:
-      return 'EarthSciences'
-    case 15:
-      return 'MaterialsScience'
-    case 16:
-      return 'Mathematics'
-    case 17:
-      return 'MedicineAndPublicHealth'
-    case 18:
-      return 'Philosophy'
-    case 19:
-      return 'Physics'
-    case 20:
-      return 'PoliticalScienceAndInternationalRelations'
-    case 21:
-      return 'Psychology'
-    case 22:
-      return 'Statistics'
+      return '其他'
   }
 }
 
 export function categoryText(category, vue) {
   switch (category) {
     case 1:
-      return vue.$t('category.computerScience')
+      return vue.$t('category.dushi')
     case 2:
-      return vue.$t('category.socialSciences')
+      return vue.$t('category.xuanhuan')
     case 3:
-      return vue.$t('category.economics')
+      return vue.$t('category.yanqing')
     case 4:
-      return vue.$t('category.education')
+      return vue.$t('category.wuxia')
     case 5:
-      return vue.$t('category.engineering')
+      return vue.$t('category.kehuan')
     case 6:
-      return vue.$t('category.environment')
+      return vue.$t('category.lishi')
     case 7:
-      return vue.$t('category.geography')
+      return vue.$t('category.youxi')
     case 8:
-      return vue.$t('category.history')
+      return vue.$t('category.lingyi')
     case 9:
-      return vue.$t('category.laws')
-    case 10:
-      return vue.$t('category.lifeSciences')
-    case 11:
-      return vue.$t('category.literature')
-    case 12:
-      return vue.$t('category.biomedicine')
-    case 13:
-      return vue.$t('category.businessandManagement')
-    case 14:
-      return vue.$t('category.earthSciences')
-    case 15:
-      return vue.$t('category.materialsScience')
-    case 16:
-      return vue.$t('category.mathematics')
-    case 17:
-      return vue.$t('category.medicineAndPublicHealth')
-    case 18:
-      return vue.$t('category.philosophy')
-    case 19:
-      return vue.$t('category.physics')
-    case 20:
-      return vue.$t('category.politicalScienceAndInternationalRelations')
-    case 21:
-      return vue.$t('category.psychology')
-    case 22:
-      return vue.$t('category.statistics')
+      return vue.$t('category.qita')
   }
 }
 
 export const categoryList = {
-  ComputerScience: 1,
-  SocialSciences: 2,
-  Economics: 3,
-  Education: 4,
-  Engineering: 5,
-  Environment: 6,
-  Geography: 7,
-  History: 8,
-  Laws: 9,
-  LifeSciences: 10,
-  Literature: 11,
-  Biomedicine: 12,
-  BusinessandManagement: 13,
-  EarthSciences: 14,
-  MaterialsScience: 15,
-  Mathematics: 16,
-  MedicineAndPublicHealth: 17,
-  Philosophy: 18,
-  Physics: 19,
-  PoliticalScienceAndInternationalRelations: 20,
-  Psychology: 21,
-  Statistics: 22
+  dushi: 1,
+  xuhuan: 2,
+  yanqing: 3,
+  wuxia: 4,
+  kehuan: 5,
+  lishi: 6,
+  youxi: 7,
+  lingyi: 8,
+  qita: 9
 }
 
 export function appendAddToShelf(list) {
@@ -233,11 +168,12 @@ export function gotoStoreHome(vue) {
 }
 
 export function gotoBookDetail(vue, book) {
+  const categoryText = book.categoryText === '都市' ? 'dushi' : (book.categoryText === '玄幻修仙' ? 'xuanhuan' : (book.categoryText === '言情' ? 'yanqing' : (book.categoryText === '武侠' ? 'wuxia' : (book.categoryText === '科幻' ? 'kehuan' : (book.categoryText === '历史' ? 'lishi' : (book.categoryText === '游戏' ? 'youxi' : (book.categoryText === '灵异' ? 'lingyi' : (book.categoryText === '其他' ? 'qita' : ''))))))))
   vue.$router.push({
     path: '/store/detail',
     query: {
       fileName: book.fileName,
-      category: book.categoryText
+      category: categoryText
     }
   })
 }

@@ -1,6 +1,7 @@
 <template>
   <div class="featured">
-    <title-view :label="titleText" :btn="btnText" v-if="titleVisible && data && data.length > 0"></title-view>
+    <title-view :label="data[0].categoryText" :btn="btnText" v-if="titleVisible && data && data.length > 0">
+    </title-view>
     <div class="featured-list">
       <div class="featured-item-wrapper">
         <div class="featured-item" v-for="(item, index) in data" :key="index" @click="showBookDetail(item)">
@@ -8,9 +9,9 @@
             <img class="img" :src="item.cover">
           </div>
           <div class="content-wrapper">
-            <div class="title title-small" ref="title">{{item.title}}</div>
+            <div class="title title-small" ref="title">{{item.fileName}}</div>
             <div class="author sub-title-tiny" ref="author">{{item.author}}</div>
-            <div class="category third-title-tiny" ref="category">{{categoryText(item.category)}}</div>
+            <div class="category third-title-tiny" ref="category">{{item.categoryText}}</div>
           </div>
         </div>
       </div>

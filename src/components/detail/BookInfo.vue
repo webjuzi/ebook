@@ -8,7 +8,7 @@
         <div class="cover-title-text">{{title}}</div>
       </div>
       <div class="cover-author-wrapper">
-        <div class="cover-author-text">{{author}}</div>
+        <div class="cover-author-text" @click="click">{{author}}</div>
       </div>
       <div class="detail-cover-description-wrapper">
         <div class="detail-cover-description-text">{{desc}}</div>
@@ -24,6 +24,11 @@
       title: String,
       author: String,
       desc: String
+    },
+    methods: {
+      click() {
+        // console.log(this.title, 1)
+      }
     }
   }
 </script>

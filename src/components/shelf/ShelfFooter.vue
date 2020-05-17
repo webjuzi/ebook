@@ -241,7 +241,7 @@ export default {
       }).show()
     },
     showGroupDialog() {
-      console.log(1)
+      // console.log(1)
       if (this.isSelected) {
         this.ifGroupDialogShow = true
       }

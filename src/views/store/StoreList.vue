@@ -8,8 +8,8 @@
             :top="42"
             @onScroll="onScroll"
             ref="scroll">
-      <featured :data="value" :titleText="titleText ? titleText : getCategoryText(key)" :btnText="''" v-for="(value, key, index) in list"
-                :key="index"></featured>
+      <featured :data="value" :titleText="titleText ? titleText : getCategoryText(key)"
+        :btnText="''" v-for="(value, key, index) in list" :key="index"></featured>
     </scroll>
   </div>
 </template>
@@ -68,7 +68,7 @@
         list().then(response => {
           this.list = response.data.data
           this.total = response.data.total
-          const category = this.$route.query.category
+          const category = this.$route.query.categoryText
           const keyword = this.$route.query.keyword
           if (category) {
             const key = Object.keys(this.list).filter(item => item === category)[0]
@@ -86,7 +86,7 @@
     },
     created() {
       this.getList()
-      this.titleText = this.$route.query.categoryText
+      this.titleText = this.$route.query.category
     }
   }
 </script>

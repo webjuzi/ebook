@@ -29,27 +29,33 @@
           </div>
           <div class="book-detail-content-row">
             <div class="book-detail-content-label">{{$t('detail.ISBN')}}</div>
-            <div class="book-detail-content-text">{{isbn}}</div>
+            <div class="book-detail-content-text text-isbn">{{isbn}}</div>
           </div>
         </div>
       </div>
       <div class="book-detail-content-wrapper">
         <div class="book-detail-content-title">{{$t('detail.navigation')}}</div>
-        <div class="book-detail-content-list-wrapper">
-          <div class="loading-text-wrapper" v-if="!this.navigation">
-            <span class="loading-text">{{$t('detail.loading')}}</span>
-          </div>
-          <div class="book-detail-content-item-wrapper">
-            <div class="book-detail-content-item" v-for="(item, index) in flatNavigation" :key="index"
-                 @click="read(item)">
-              <div class="book-detail-content-navigation-text"
-                   :class="{'is-sub': item.deep> 1}"
-                   :style="itemStyle(item)"
-                   v-if="item.label">{{item.label}}
+        <scroll class="scroll-content-list"
+          :top="0"
+          :bottom="0"
+          @onScroll="onScroll"
+          ref="scroll">
+          <div class="book-detail-content-list-wrapper">
+            <div class="loading-text-wrapper" v-if="!this.navigation">
+              <span class="loading-text">{{$t('detail.loading')}}</span>
+            </div>
+            <div class="book-detail-content-item-wrapper">
+              <div class="book-detail-content-item" v-for="(item, index) in flatNavigation" :key="index"
+                  @click="read(item)">
+                <div class="book-detail-content-navigation-text"
+                    :class="{'is-sub': item.deep> 1}"
+                    :style="itemStyle(item)"
+                    v-if="item.label">{{item.label}}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </scroll>
       </div>
       <div class="book-detail-content-wrapper">
         <div class="book-detail-content-title">{{$t('detail.trial')}}</div>
@@ -97,13 +103,14 @@
       Toast
     },
     computed: {
-      desc() {
-        if (this.description) {
-          return this.description.substring(0, 100)
-        } else {
-          return ''
-        }
-      },
+      // desc() {
+      //   if (this.description) {
+      //     console.log(this)
+      //     return this.description.substring(0, 100)
+      //   } else {
+      //     return ''
+      //   }
+      // },
       flatNavigation() {
         if (this.navigation) {
           return Array.prototype.concat.apply([], Array.prototype.concat.apply([], this.doFlatNavigation(this.navigation.toc)))
@@ -154,7 +161,8 @@
         toastText: '',
         trialText: null,
         categoryText: null,
-        opf: null
+        opf: null,
+        desc: ''
       }
     },
     methods: {
@@ -175,7 +183,10 @@
           // if (!err && value instanceof Blob) {
             this.$router.push({
               // path: `/ebook/${this.bookItem.fileName}`
-              path: `/ebook/${this.categoryText}|${this.bookItem.fileName}`
+              path: `/ebook/${this.categoryText}|${this.bookItem.fileName}`,
+              query: {
+                url: this.cover
+              }
           //   })
           // } else {
           //   this.showToast(this.$t('shelf.downloadFirst'))
@@ -213,6 +224,7 @@
       read(item) {
         getLocalForage(this.bookItem.fileName, (err, value) => {
           if (!err && value instanceof Blob) {
+            // console.log(this.categoryText)
             this.$router.push({
               // path: `/ebook/${this.bookItem.fileName}`,
               // query: {
@@ -265,7 +277,9 @@
         }
       },
       downloadBook() {
-        const opf = `http://47.99.166.157/epub2/${this.bookItem.categoryText}/${this.bookItem.fileName}/OEBPS/package.opf`
+        // const categoryText = this.bookItem.categoryText === '都市' ? 'dushi' : (this.bookItem.categoryText === '玄幻修仙' ? 'xuanhuan' : (this.bookItem.categoryText === '言情' ? 'yanqing' : (this.bookItem.categoryText === '武侠' ? 'wuxia' : (this.bookItem.categoryText === '科幻' ? 'kehuan' : (this.bookItem.categoryText === '历史' ? 'lishi' : (this.bookItem.categoryText === '游戏' ? 'youxi' : (this.bookItem.categoryText === '灵异' ? 'lingyi' : (this.bookItem.categoryText === '其他' ? 'qita' : ''))))))))
+        const opf = `http://111.229.20.115:5894/ebook/epub2/${this.bookItem.categoryText}/${this.bookItem.fileName}/FoxMake.opf`
+        // console.log(opf)
         this.parseBook(opf)
       },
       parseBook(blob) {
@@ -309,20 +323,21 @@
           }).then(response => {
             if (response.status === 200 && response.data.error_code === 0 && response.data.data) {
               const data = response.data.data
+              this.desc = response.data.data.title
               this.bookItem = data
               this.cover = this.bookItem.cover
               let rootFile = data.rootFile
               if (rootFile.startsWith('/')) {
                 rootFile = rootFile.substring(1, rootFile.length)
               }
-              this.opf = `http://47.99.166.157/epub2/${fileName}/${rootFile}`
+              this.opf = `http://111.229.20.115:5894/ebook/epub2/${fileName}/${rootFile}`
               this.parseBook(this.opf)
             } else {
               this.showToast(response.data.msg)
             }
           })
         }
-        this.bookShelf = getLocalStorage('bookShelf')
+        this.bookShelf = getLocalStorage('fileName')
       },
       back() {
         this.$router.go(-1)
@@ -372,6 +387,9 @@
         width: 100%;
         border-bottom: px2rem(1) solid #eee;
         box-sizing: border-box;
+        .scroll-content-list {
+          height: px2rem(290)!important;
+        }
         .book-detail-content-title {
           font-size: px2rem(20);
           font-weight: bold;
@@ -401,6 +419,9 @@
               flex: 1;
               font-size: px2rem(14);
               color: #333;
+            }
+            .text-isbn {
+              @include ellipsis;
             }
           }
           #preview {

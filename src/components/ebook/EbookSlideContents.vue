@@ -69,6 +69,11 @@ export default {
       searchText: ''
     }
   },
+  computed: {
+    cover() {
+      return this.$route.query.url
+    }
+  },
   methods: {
     search() {
       if (this.searchText && this.searchText.length > 0) {

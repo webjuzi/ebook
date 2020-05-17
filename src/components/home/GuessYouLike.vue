@@ -7,7 +7,8 @@
           <img class="img" :src="item.cover">
         </div>
         <div class="content-wrapper">
-          <div class="title title-big" ref="title">{{item.title}}</div>
+          <div class="title title-big" ref="title">{{item.fileName}}</div>
+          <div class="synopsis" ref="title">{{item.title}}</div>
           <div class="author sub-title" ref="author">{{item.author}}</div>
           <div class="result third-title" ref="result">{{resultText(item)}}</div>
         </div>
@@ -103,16 +104,17 @@
       box-sizing: border-box;
       .guess-you-like-item {
         display: flex;
-        margin-top: px2rem(15);
+        margin-top: px2rem(3);
         &:first-child {
           margin-top: px2rem(5);
         }
         .img-wrapper {
-          flex: 0 0 20%;
-          padding: px2rem(10) px2rem(10) px2rem(10) 0;
+          flex: 0 0 26%;
+          padding: px2rem(10) px2rem(10) px2rem(3) 0;
           box-sizing: border-box;
           .img {
             width: 100%;
+            height: 25vw;
           }
         }
         .content-wrapper {
@@ -120,10 +122,17 @@
           padding: px2rem(10) 0;
           box-sizing: border-box;
           .author {
-            margin-top: px2rem(15);
+            margin-top: px2rem(10);
+            color: #000;
           }
           .result {
+            margin-top: px2rem(2);
+          }
+          .synopsis {
+            font-size: px2rem(8);
+            @include ellipsis2(2);
             margin-top: px2rem(5);
+            color: #777;
           }
         }
       }

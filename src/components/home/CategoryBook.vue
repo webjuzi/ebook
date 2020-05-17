@@ -7,7 +7,7 @@
           <img class="img" :src="item.cover">
         </div>
         <div class="content-wrapper">
-          <div class="title title-small" ref="title">{{item.title}}</div>
+          <div class="title title-small" ref="title">{{item.fileName}}</div>
           <div class="num sub-title-tiny" ref="author">{{item.author}}</div>
         </div>
       </div>
@@ -31,7 +31,7 @@
     methods: {
       showBookCategory() {
         this.$router.push({
-          path: '/book-store/list',
+          path: '/store/list',
           query: {
             category: getCategoryName(this.data.category),
             categoryText: this.categoryText(this.data.category)
@@ -63,12 +63,21 @@
           @include center;
           .img {
             width: 100%;
+            height: 28vw;
           }
         }
         .content-wrapper {
+          .title{
+            font-size: px2rem(10);
+            @include center;
+            @include ellipsis;
+          }
           width: 100%;
-          margin-top: px2rem(10);
+          margin-top: px2rem(8);
           .num {
+            color: darkgrey;
+            font-weight: 100;
+            @include center;
             margin-top: px2rem(5);
           }
         }

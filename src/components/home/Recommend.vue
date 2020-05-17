@@ -7,7 +7,7 @@
           <img class="img" :src="item.cover">
         </div>
         <div class="content-wrapper">
-          <div class="title title-medium" ref="title">{{item.title}}</div>
+          <div class="title title-medium" ref="title">{{item.filename}}</div>
           <div class="num sub-title" ref="num">{{$t('home.readers').replace('$1', item.readers)}}</div>
         </div>
       </div>
@@ -48,6 +48,7 @@
           @include center;
           .img {
             width: 80%;
+            height: 28vw;
           }
         }
         .content-wrapper {
@@ -56,6 +57,9 @@
           @include columnCenter;
           .title {
             text-align: center;
+            width: 80%;
+            padding: 0 px2rem(5);
+            @include ellipsis;
           }
           .num {
             margin-top: px2rem(5);

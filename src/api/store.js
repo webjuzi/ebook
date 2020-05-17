@@ -2,38 +2,31 @@ import axios from 'axios'
 import { setLocalForage } from '../utils/localForage'
 import { getCategoryName } from '../utils/store'
 
-export function flatList() {
-  return axios({
-    method: 'get',
-    url: 'http://47.99.166.157:3000/book/flat-list'
-  })
-}
-
 export function home() {
   return axios({
     method: 'get',
-    url: 'http://47.99.166.157:3000/book/home/'
+    url: 'http://192.168.0.180:5894/book/home'
   })
 }
 
 export function list() {
   return axios({
     method: 'get',
-    url: '/juzi/ebook/book/list/'
+    url: 'http://192.168.0.180:5894/book/list'
   })
 }
 
 export function shelf() {
   return axios({
     method: 'get',
-    url: 'http://47.99.166.157:3000/book/shelf/'
+    url: 'http://192.168.0.180:5894/book/shelf'
   })
 }
 
 export function detail(book) {
   return axios({
     method: 'get',
-    url: 'http://47.99.166.157:3000/book/detail',
+    url: 'http://192.168.0.180:5894/book/detail',
     params: {
       fileName: book.fileName
     }
@@ -45,6 +38,8 @@ export function download(book, onSuccess, onError, onProgress) {
     onProgress = onError
     onError = null
   }
+  // console.log(book)
+  const categoryText = book.categoryText === '都市' ? 'dushi' : (book.categoryText === '玄幻修仙' ? 'xuanhuan' : (book.categoryText === '言情' ? 'yanqing' : (book.categoryText === '武侠' ? 'wuxia' : (book.categoryText === '科幻' ? 'kehuan' : (book.categoryText === '历史' ? 'lishi' : (book.categoryText === '游戏' ? 'youxi' : (book.categoryText === '灵异' ? 'lingyi' : (book.categoryText === '其他' ? 'qita' : ''))))))))
   return axios.create({
     baseURL: 'http://111.229.20.115:5894/ebook/epub/',
     method: 'get',
@@ -53,7 +48,7 @@ export function download(book, onSuccess, onError, onProgress) {
     onDownloadProgress: progressEvent => {
       if (onProgress) onProgress(progressEvent)
     }
-  }).get(`${book.categoryText}/${book.fileName}.epub`).then(res => {
+  }).get(`${categoryText}/${book.fileName}.epub`).then(res => {
     const blob = new Blob([res.data])
     setLocalForage(book.fileName, blob, () => {
       if (onSuccess) onSuccess(book)
