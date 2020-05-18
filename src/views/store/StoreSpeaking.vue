@@ -77,7 +77,7 @@
   import SpeakWindow from '../../components/speak/SpeakMask'
   import Toast from '@/components/common/Toast'
   import { findBook, getCategoryName } from '../../utils/store'
-  import { download, flatList } from '../../api/store'
+  import { download, shelfList } from '../../api/store'
   import { getLocalForage } from '../../utils/localForage'
   import { realPx } from '../../utils/utils'
   import Epub from 'epubjs'
@@ -219,7 +219,7 @@
         this.totalPlayingTime = this.$refs.audio.duration
       },
       findBookFromList(fileName) {
-        flatList().then(response => {
+        shelfList().then(response => {
           if (response.status === 200) {
             const bookList = response.data.data.filter(item => item.fileName === fileName)
             // console.log(bookList)

@@ -24,68 +24,68 @@ export default {
         hotSearch: [
           {
             type: 1,
-            text: 'dahjdwaihjdoawjdo',
+            text: '顶部搜索框可用',
             num: '1.8万'
           },
           {
             type: 1,
-            text: 'qjdoqjod[qkdpqk',
+            text: '下面为假数据',
             num: '1.5万'
           },
           {
             type: 1,
-            text: 'dadpowkqopkdpqwo',
+            text: '橘子个人网站：www.zhouyongju.com',
             num: '1.2万'
           }
         ],
         historySearch: [
           {
             type: 2,
-            text: 'dawdwq'
+            text: '傲世九重天'
           },
           {
             type: 2,
-            text: 'dqd'
+            text: '很纯很暧昧前传'
           },
           {
             type: 2,
-            text: 'dawdbrhwq'
+            text: '很纯很暧昧'
           },
           {
              type: 2,
-            text: 'qdadqwd'
+            text: '校花的贴身高手'
           },
           {
             type: 2,
-            text: 'dawdwq'
+            text: '我的美女老师'
           },
           {
             type: 2,
-            text: 'dqd'
+            text: '斗罗大陆'
           },
           {
             type: 2,
-            text: 'dawdbrhwq'
+            text: '全能跨界王'
           },
           {
              type: 2,
-            text: 'qdadqwd'
+            text: '明天下'
           },
           {
             type: 2,
-            text: 'dawdwq'
+            text: '金龙仙途'
           },
           {
             type: 2,
-            text: 'dqd'
+            text: '无限先知'
           },
           {
             type: 2,
-            text: 'dawdbrhwq'
+            text: '深空旅人'
           },
           {
              type: 2,
-            text: 'qdadqwd'
+            text: '无限先知'
           }
         ]
       }

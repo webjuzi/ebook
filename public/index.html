@@ -5,7 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimun-scale=1.0,user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>logo.png">
+    <meta name="keywords" content="周永举,个人博客,个人网站,Vue,免费小说,txt下载,热门小说,电子书,看小说,都市修真,玄幻小说">
+    <meta name="description" content="www.zhouyongju.com/ebook，一个90后前端开发工程师的实验基地，全方位展示各种最新的电子书，提供资源的展示以及下载等等。此网站将会不定期运用各种前沿技术升级，望多留言提宝贵意见！">
+    <meta baidu-gxt-verify-token="09853849afca191c93ea21b3cdadb1b2">
     <title>橘子悦读</title>
+    <script>
+      function search(){
+        window.open("http://www.baidu.com/s?wd="+$("#input").val());
+      }
+      document.onkeydown = function(event) {
+      var e = event || window.event || arguments.callee.caller.arguments[0];
+          if (e && e.keyCode == 13) { 
+          search();
+            }
+        };
+    </script>
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?de8658b669b6209fa589ee2de95dacf1";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
   </head>
   <body>
     <div id="app"></div>

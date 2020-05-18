@@ -14,14 +14,14 @@
     <div class="book-card" :class="{'animation': runBookCardAnimation}" v-show="runBookCardAnimation">
       <div class="book-card-wrapper">
         <div class="img-wrapper">
-          <img :src="data ? data.cover : ''" alt="">
+          <img :src="dataIndex ? dataIndex.cover : ''" alt="">
         </div>
         <div class="content-wrapper">
-          <div class="content-title">{{data ? data.filename : ''}}</div>
-          <div class="content-author sun-title-medium">{{data ? data.author : ''}}</div>
+          <div class="content-title">{{dataIndex ? dataIndex.fileName : ''}}</div>
+          <div class="content-author sun-title-medium">{{dataIndex ? dataIndex.author : ''}}</div>
           <div class="content-category">{{categoryText()}}</div>
         </div>
-        <div class="read-btn" @click.stop="showBookDetail(data)">{{$t('home.readNow')}}</div>
+        <div class="read-btn" @click.stop="showBookDetail(dataIndex)">{{$t('home.readNow')}}</div>
       </div>
     </div>
     <div class="close-btn-wrapper" @click="close">
@@ -36,7 +36,7 @@ import { flapCardList, categoryText } from '../../utils/store'
 export default {
   mixins: [storeHomeMixin],
   props: {
-    data: Object
+    data: Array
   },
   data() {
     return {
@@ -47,12 +47,15 @@ export default {
       runFlapCardAnimation: false,
       pointList: null,
       runPointAnimation: false,
-      runBookCardAnimation: false
+      runBookCardAnimation: false,
+      dataIndex: '',
+      index: 0
     }
   },
   watch: {
     flapCardVisible(v) {
       if (v) {
+        this.dataIndex = this.data[this.index]
         this.runAnmation()
       }
     }
@@ -61,6 +64,7 @@ export default {
     close() {
       this.setFlapCardVisible(false)
       this.stopAnimation()
+      this.index = Math.floor(Math.random() * this.data.length)
     },
     semiCircleStyle(item, dir) {
       return {
@@ -178,8 +182,8 @@ export default {
       }, 2500)
     },
     categoryText() {
-      if (this.data) {
-        return categoryText(this.data.category, this)
+      if (this.dataIndex) {
+        return categoryText(this.dataIndex.category, this)
       } else {
         return ''
       }

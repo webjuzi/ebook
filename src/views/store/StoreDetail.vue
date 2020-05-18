@@ -80,13 +80,13 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { storeShelfMixin } from '../../utils/mixin'
+  import { storeShelfMixin, storeHomeMixin } from '../../utils/mixin'
   import DetailTitle from '@/components/detail/DetailTitle'
   import DetailInfo from '@/components/detail/DetailInfo'
   import Scroll from '@/components/common/Scroll'
   import Toast from '@/components/common/Toast'
   import { removeFromBookShelf, addToShelf } from '@/utils/store'
-  import { flatList, detail } from '@/api/store'
+  import { shelfList, detail } from '@/api/store'
   import { px2rem, realPx } from '@/utils/utils'
   import { getLocalForage } from '@/utils/localForage'
   import { getLocalStorage, getBookShelf } from '@/utils/localStorage'
@@ -95,7 +95,7 @@
   global.ePub = Epub
 
   export default {
-    mixins: [storeShelfMixin],
+    mixins: [storeShelfMixin, storeHomeMixin],
     components: {
       DetailTitle,
       DetailInfo,
@@ -304,7 +304,7 @@
         })
       },
       findBookFromList(fileName) {
-        flatList().then(response => {
+        shelfList().then(response => {
           if (response.status === 200) {
             const bookList = response.data.data.filter(item => item.fileName === fileName)
             if (bookList && bookList.length > 0) {
@@ -341,6 +341,7 @@
       },
       back() {
         this.$router.go(-1)
+        this.setFlapCardVisible(false)
       },
       display(location) {
         if (this.$refs.preview) {

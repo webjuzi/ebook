@@ -5,31 +5,38 @@ import { getCategoryName } from '../utils/store'
 export function home() {
   return axios({
     method: 'get',
-    url: 'http://192.168.0.180:5894/book/home'
+    url: 'http://111.229.20.115:5858/book/home'
   })
 }
 
 export function list() {
   return axios({
     method: 'get',
-    url: 'http://192.168.0.180:5894/book/list'
+    url: 'http://111.229.20.115:5858/book/list'
   })
 }
 
 export function shelf() {
   return axios({
     method: 'get',
-    url: 'http://192.168.0.180:5894/book/shelf'
+    url: 'http://111.229.20.115:5858/book/shelf'
   })
 }
 
 export function detail(book) {
   return axios({
     method: 'get',
-    url: 'http://192.168.0.180:5894/book/detail',
+    url: 'http://111.229.20.115:5858/book/detail',
     params: {
       fileName: book.fileName
     }
+  })
+}
+
+export function shelfList() {
+  return axios({
+    method: 'get',
+    url: 'http://111.229.20.115:5858/book/flat-list'
   })
 }
 

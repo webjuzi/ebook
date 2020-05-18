@@ -53,7 +53,7 @@
         return categoryText(category, this)
       },
       resize() {
-        this.$nextTick(() => {
+        this.nextTick(() => {
           this.$refs.title.forEach(item => {
             item.style.width = this.width
           })

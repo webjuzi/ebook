@@ -216,11 +216,12 @@ export default {
     // },
     parseBook() {
       this.book.loaded.cover.then(cover => {
-        // console.log(cover)
-        this.book.archive.createUrl(cover).then(url => {
-          this.setCover(url)
-          // console.log(url)
-        })
+        if (cover) {
+          this.book.archive.createUrl(cover).then(url => {
+            this.setCover(url)
+            // console.log(url)
+          })
+        }
       })
       this.book.loaded.metadata.then(metadata => {
         this.setMetadata(metadata)

@@ -67,8 +67,8 @@ export default {
     home().then(response => {
       if (response && response.status === 200) {
         const data = response.data
-        const randomIndex = Math.floor(Math.random() * data.random.length)
-        this.random = data.random[randomIndex]
+        // const randomIndex = Math.floor(Math.random() * data.random.length)
+        this.random = data.random
         this.banner = data.banner
         this.guessYouLike = data.guessYouLike
         this.recommend = data.recommend
