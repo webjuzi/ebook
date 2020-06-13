@@ -1,24 +1,24 @@
 const book = {
   state: {
-    fileName: '',
-    menuVisible: false,
-    settingVisible: -1,
-    defaultFontSize: 16,
-    defaultFontFamily: 'Default',
-    fontFamilyVisible: false,
-    defaultTheme: 'Default',
-    bookAvailable: false,
-    progress: 0,
-    section: 0,
-    isPaginating: true,
-    currentBook: null,
-    navigation: null,
-    cover: null,
-    metadata: null,
-    paginate: '',
-    pagelist: null,
-    offsetY: 0,
-    isBookmark: null
+    fileName: '', // 书名
+    menuVisible: false, // 阅读器菜单和标题
+    settingVisible: -1, // 菜单栏：-1=不显示 0=字号 1=主题 2=进度条 3=目录
+    defaultFontSize: 16, // 默认字体大小
+    currentBook: null, // 正在阅读的book
+    defaultFontFamily: 'Default', //
+    fontFamilyVisible: false, //
+    defaultTheme: 'Default', //
+    bookAvailable: false, //
+    progress: 0, // 进度
+    section: 0, //
+    isPaginating: true, //
+    navigation: null, //
+    cover: null, //
+    metadata: null, //
+    paginate: '', //
+    pagelist: null, //
+    offsetY: 0, //
+    isBookmark: null //
   },
   mutations: {
     SET_FILENAME: (state, fileName) => {

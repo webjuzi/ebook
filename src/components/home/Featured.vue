@@ -1,6 +1,6 @@
 <template>
   <div class="featured">
-    <title-view :label="data[0].categoryText" :btn="btnText" v-if="titleVisible && data && data.length > 0">
+    <title-view :label="data.length === 6 ? '精选' : data[0].categoryText" :btn="btnText" v-if="titleVisible && data && data.length > 0">
     </title-view>
     <div class="featured-list">
       <div class="featured-item-wrapper">

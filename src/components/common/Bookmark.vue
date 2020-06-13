@@ -1,4 +1,5 @@
 <template>
+<!-- 书签 -->
   <div class="bookmark" :style="style" ref="bookmark"></div>
 </template>
 
@@ -11,6 +12,7 @@ export default {
     color: String
   },
   computed: {
+    // 根据传递的值设置书签的颜色
     style() {
       if (this.color) {
         return {
@@ -22,6 +24,7 @@ export default {
     }
   },
   methods: {
+    // 计算宽高
     refresh() {
       if (this.width && this.height) {
         this.$refs.bookmark.style.borderWidth = `${px2rem(this.height - 10)}rem ${px2rem(this.width / 2)}rem ${px2rem(10)}rem ${px2rem(this.width / 2)}rem`

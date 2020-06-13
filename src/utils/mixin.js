@@ -84,6 +84,7 @@ export const ebookMixin = {
           break
       }
     },
+    // 刷新当前位置
     refreshLocation() {
       const currentLocation = this.currentBook.rendition.currentLocation()
       // console.log(currentLocation)
@@ -124,6 +125,7 @@ export const ebookMixin = {
       this.setSettingVisible(-1)
       this.setFontFamilyVisible(false)
     },
+    // 获取悦读时间
     gatReadTimeText() {
       return this.$t('book.haveRead').replace('$1', getReadTimeByMinute(this.fileName))
     }

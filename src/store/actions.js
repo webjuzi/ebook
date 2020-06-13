@@ -1,4 +1,10 @@
 const actions = {
+  setFileName: ({ commit }, fileName) => {
+    return commit('SET_FILENAME', fileName)
+  },
+  setMenuVisible: ({ commit }, visible) => {
+    return commit('SET_MENU_VISIBLE', visible)
+  },
   setFontFamilyVisible: ({ commit }, visible) => {
     return commit('SET_FONT_FAMILY_VISIBLE', visible)
   },
@@ -10,12 +16,6 @@ const actions = {
   },
   setSettingVisible: ({ commit }, visible) => {
     return commit('SET_SETTING_VISIBLE', visible)
-  },
-  setMenuVisible: ({ commit }, visible) => {
-    return commit('SET_MENU_VISIBLE', visible)
-  },
-  setFileName: ({ commit }, fileName) => {
-    return commit('SET_FILENAME', fileName)
   },
   setDefaultTheme: ({ commit }, theme) => {
     return commit('SET_DEFAULT_THEME', theme)

@@ -11,6 +11,7 @@ const messages = {
   cn
 }
 
+// 获取和保存当前的语言
 let locale = getLocale()
 if (!locale) {
   locale = 'cn'

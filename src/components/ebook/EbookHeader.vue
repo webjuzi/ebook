@@ -1,4 +1,5 @@
 <template>
+<!-- 阅读器顶部章节信息 -->
   <div class="ebook-header">
     <span class="ebook-header-text">{{getSectionName}}</span>
   </div>

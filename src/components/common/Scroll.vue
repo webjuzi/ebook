@@ -1,4 +1,5 @@
 <template>
+<!-- 滚动条组件 -->
   <div class="scroll-wrapper" :class="{'no-scroll': ifNoScroll}" @scroll.passive="handleScroll" ref="scrollWrapper">
     <slot></slot>
   </div>

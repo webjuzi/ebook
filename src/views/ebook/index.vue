@@ -1,4 +1,5 @@
 <template>
+<!-- 阅读器 -->
   <div class="ebook" ref="ebook">
     <ebook-title></ebook-title>
     <ebook-reader></ebook-reader>
@@ -11,10 +12,10 @@
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
-import EbookReader from '../../components/ebook/EbookReader'
-import EbookTitle from '../../components/ebook/EbookTitle'
-import EbookMenu from '../../components/ebook/EbookMenu'
-import EbookBookmark from '../../components/ebook/EbookBookmark'
+import EbookReader from '../../components/ebook/EbookReader'// 主体
+import EbookTitle from '../../components/ebook/EbookTitle'// 标题
+import EbookMenu from '../../components/ebook/EbookMenu'// 菜单
+import EbookBookmark from '../../components/ebook/EbookBookmark'// 阅读器上方书签组件
 import EbookHeader from '../../components/ebook/EbookHeader'
 import EbookFooter from '../../components/ebook/EbookFooter'
 import { getReadTime, saveReadTime } from '../../utils/localStorage'
@@ -29,6 +30,7 @@ export default {
     EbookHeader,
     EbookFooter
   },
+  // 监听offsety的变化
   watch: {
     offsetY(v) {
       if (!this.menuVisible) {
@@ -44,16 +46,20 @@ export default {
     }
   },
   methods: {
+    // 还原
     restore() {
       this.$refs.ebook.style.top = 0
       this.$refs.ebook.style.transition = 'all .2s linear'
+      // 还原后清除动画，防止下次下拉的时候卡顿
       setTimeout(() => {
         this.$refs.ebook.style.transition = ''
       }, 200)
     },
+    // 下拉
     move(v) {
       this.$refs.ebook.style.top = v + 'px'
     },
+    // 记录阅读时间
     startLoopReadTime() {
       let readTime = getReadTime(this.fileName)
       if (!readTime) {

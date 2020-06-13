@@ -1,7 +1,9 @@
-$ratio: 375/ 10;
+// 计算rem
+$ratio: 375 / 10;
 @function px2rem($px) {
   @return $px / $ratio + rem;
 }
+// 水平垂直居中
 @mixin center {
   display: flex;
   justify-content: center;
@@ -20,11 +22,13 @@ $ratio: 375/ 10;
   justify-content: center;
   align-items: flex-start;
 }
+// 垂直居中 水平居左
 @mixin left {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
+// 垂直居中 水平居右
 @mixin right {
   display: flex;
   justify-content: flex-end;
@@ -48,12 +52,14 @@ $ratio: 375/ 10;
   justify-content: center;
   align-items: flex-start;
 }
+// 一行显示，超出省略号
 @mixin ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
+// n行显示，超出省略号
 @mixin ellipsis2($line) {
   display: -webkit-box;
   -webkit-box-orient: vertical;

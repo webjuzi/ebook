@@ -30,11 +30,11 @@
 
 <script>
 import { ebookMixin } from '../../utils/mixin'
-import EbookSettingFont from './EbookSettingFont'
-import EbookSettingFontPopup from './EbookSettingFontPopup'
-import EbookSettingTheme from './EbookSettingTheme'
-import EbookSettingProgress from './EbookSettingProgress'
-import EbookSlide from './EbookSlide'
+import EbookSettingFont from './EbookSettingFont'// 引入字号组件
+import EbookSettingFontPopup from './EbookSettingFontPopup'// 引入字体组件
+import EbookSettingTheme from './EbookSettingTheme'// 引入主题组件
+import EbookSettingProgress from './EbookSettingProgress'// 引入进度组件
+import EbookSlide from './EbookSlide'// 引入目录组件
 export default {
   mixins: [ebookMixin],
   components: {
@@ -46,6 +46,7 @@ export default {
   },
   methods: {
     showSetting(key) {
+      // 传入点击的组件值
       this.setSettingVisible(key)
     }
   }

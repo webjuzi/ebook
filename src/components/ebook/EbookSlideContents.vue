@@ -1,4 +1,5 @@
 <template>
+<!-- 目录组件 -->
   <div class="ebook-slide-contents">
     <div class="slide-contents-search-wrapper">
       <div class="slide-contents-search-input-wrapper">
@@ -70,22 +71,26 @@ export default {
     }
   },
   computed: {
+    // 获取封面图
     cover() {
       return this.$route.query.url
     }
   },
   methods: {
+    // 回车键后全文搜索
     search() {
       if (this.searchText && this.searchText.length > 0) {
         this.doSearch(this.searchText).then(list => {
           this.searchList = list
           this.searchList.map(item => {
+            // 替换搜索到的关键词的样式
             item.excerpt = item.excerpt.replace(this.searchText, `<span class="content-search-text">${this.searchText}</span>`)
             return item
           })
         })
       }
     },
+    // epubjs全文搜索方法
     doSearch(q) {
       return Promise.all(
           this.currentBook.spine.spineItems.map(section => section.load(this.currentBook.load.bind(this.currentBook))
@@ -101,16 +106,19 @@ export default {
         }
       })
     },
+    // 根据目录层级计算左边距
     contentItemStyle(item) {
       return {
         marginLeft: `${px2rem(item.level * 15)}rem`
       }
     },
+    // 隐藏取消按钮,清空搜索框和列表
     hideSearchPage() {
       this.searchVisible = false
       this.searchText = ''
       this.searchList = null
     },
+    // 显示取消按钮
     showSearchPage() {
       this.searchVisible = true
     }

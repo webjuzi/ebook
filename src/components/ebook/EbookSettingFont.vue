@@ -1,4 +1,5 @@
 <template>
+<!-- 阅读器字号设置 -->
   <transition name="slide-up">
     <div class="setting-wrapper" v-show="menuVisible && settingVisible === 0">
       <div class="setting-font-size">
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-import { FONT_SIZE_LIST } from '../../utils/book'
+import { FONT_SIZE_LIST } from '../../utils/book'// 引入字号列表
 import { ebookMixin } from '../../utils/mixin'
 import { saveFontSize } from '../../utils/localStorage'
 export default {
@@ -47,7 +48,7 @@ export default {
   methods: {
     setFontSize(fontSize) {
       this.setDefaultFontSize(fontSize)
-      this.currentBook.rendition.themes.fontSize(fontSize)
+      this.currentBook.rendition.themes.fontSize(fontSize)// 设置字体
       saveFontSize(this.fileName, fontSize)
     },
     showFontFamilypopup() {

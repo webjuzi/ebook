@@ -1,6 +1,7 @@
 import { getReadTime } from './localStorage'
 import { realPx } from './utils'
 
+// 字号列表
 export const FONT_SIZE_LIST = [
   { fontSize: 12 },
   { fontSize: 14 },
@@ -11,6 +12,7 @@ export const FONT_SIZE_LIST = [
   { fontSize: 24 }
 ]
 
+// 字体列表
 export const FONT_FAMILY = [
   { font: 'Default' },
   { font: 'Cabin' },
@@ -19,6 +21,7 @@ export const FONT_FAMILY = [
   { font: 'Tangerine' }
 ]
 
+// 主题样式列表
 export function themeList(vue) {
   return [
     {
@@ -72,14 +75,15 @@ export function themeList(vue) {
   ]
 }
 
+// 主题样式设置
 export function addCss(href) {
+  // 创建link标签，添加属性，添加到head
   const link = document.createElement('link')
   link.setAttribute('rel', 'stylesheet')
   link.setAttribute('type', 'text/css')
   link.setAttribute('href', href)
   document.getElementsByTagName('head')[0].appendChild(link)
 }
-
 export function removeCss(href) {
   const links = document.getElementsByTagName('link')
   for (let i = links.length; i >= 0; i--) {
@@ -89,7 +93,6 @@ export function removeCss(href) {
     }
   }
 }
-
 export function removeAllCss() {
   removeCss('juzi/ebook/theme/theme_default.css')
   removeCss('juzi/ebook/theme/theme_eye.css')
@@ -106,6 +109,7 @@ export function getReadTimeByMinute(fileName) {
   }
 }
 
+// 生成目录结构
 export function flatten(array) {
   return [].concat(...array.map(item => [].concat(item, ...flatten(item.subitems))))
 }

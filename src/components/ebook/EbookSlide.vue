@@ -1,4 +1,5 @@
 <template>
+<!-- 目录栏 -->
   <transition name="fade">
     <div class="slide-content-wrapper" v-show="menuVisible && settingVisible === 3">
       <transition name="slide-right">
@@ -45,9 +46,11 @@ export default {
     EbookLoading
   },
   methods: {
+    // 选中效果
     selectTab(tab) {
       this.currentTab = tab
     },
+    // loading动画
     ifLoading() {
       if (this.content && this.bookmark) {
         this.loading = true

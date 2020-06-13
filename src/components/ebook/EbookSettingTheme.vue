@@ -1,4 +1,5 @@
 <template>
+<!-- 主题 -->
   <transition name="slide-up">
     <div class="setting-wrapper" v-show="menuVisible && settingVisible === 1">
       <div class="setting-theme">
@@ -13,12 +14,13 @@
 </template>
 
 <script>
-import { ebookMixin } from '../../utils/mixin'
+import { ebookMixin } from '../../utils/mixin'// themeList在mixin中引入了
 import { saveTheme } from '../../utils/localStorage'
 
 export default {
   mixins: [ebookMixin],
   methods: {
+    // 设置主题
     setTheme(index) {
       const theme = this.themeList[index]
       this.setDefaultTheme(theme.name).then(() => {

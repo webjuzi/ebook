@@ -1,4 +1,5 @@
 <template>
+<!-- 进度条 -->
   <transition name="slide-up">
     <div class="setting-wrapper" v-show="menuVisible && settingVisible === 2">
       <div class="setting-progress">
@@ -37,24 +38,29 @@ export default {
   computed: {
   },
   methods: {
+    // 拖动进度条松手调用
     onProgressChange(progress) {
       this.setProgress(progress).then(() => {
         this.displayProhress()
         this.updateProgressBg()
       })
     },
+    // 拖动过程中调用
     onProgressInput(progress) {
       this.setProgress(progress).then(() => {
         this.updateProgressBg()
       })
     },
+    // 当前进度的页面
     displayProhress() {
       const cfi = this.currentBook.locations.cfiFromPercentage(this.progress / 100)
       this.display(cfi)
     },
+    // 进度条背景设置
     updateProgressBg() {
       this.$refs.progress.style.backgroundSize = `${this.progress}% 100%`
     },
+    // 上一章
     prevSection() {
       if (this.section > 0 && this.bookAvailable) {
         this.setSection(this.section - 1).then(() => {
@@ -62,6 +68,7 @@ export default {
         })
       }
     },
+    // 下一章
     nextSection() {
       // console.log(this.currentBook)
       if (this.section < this.currentBook.spine.length - 1 && this.bookAvailable) {
@@ -70,6 +77,7 @@ export default {
         })
       }
     },
+    // 显示当前章节内容
     displaySection() {
       const sectionInfo = this.currentBook.section(this.section)
       if (sectionInfo && sectionInfo.href) {
@@ -78,6 +86,7 @@ export default {
     }
   },
   updated() {
+    // 初始化进度条背景
     this.updateProgressBg()
   }
 }

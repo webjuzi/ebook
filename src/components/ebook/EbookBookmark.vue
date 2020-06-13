@@ -1,4 +1,5 @@
 <template>
+<!-- 上方书签组件 -->
   <div class="ebook-bookmark" ref="bookmark">
     <div class="ebook-bookmark-text-warpper">
       <div class="ebook-bookmark-down-wrapper" ref="iconDown">
@@ -15,7 +16,7 @@
 <script>
 import { ebookMixin } from '../../utils/mixin'
 import { realPx } from '../../utils/utils'
-import Bookmark from '../common/Bookmark'
+import Bookmark from '../common/Bookmark'// 书签
 import { getBookmark, saveBookmark } from '../../utils/localStorage'
 export default {
   mixins: [ebookMixin],
@@ -30,12 +31,15 @@ export default {
     }
   },
   computed: {
+    // 第二阶段，超过后改变提示信息
     height() {
       return realPx(50)
     },
+    // 临界值，超过即添加书签
     threshold() {
       return realPx(70)
     },
+    // 书签的样式
     fixedStyle() {
       return {
         position: 'fixed',
@@ -45,6 +49,7 @@ export default {
     }
   },
   watch: {
+    // 监听下拉距离
     offsetY(v) {
       if (this.menuVisible || this.settingVisible >= 0) {
         return ''
@@ -59,6 +64,7 @@ export default {
         this.restore()
       }
     },
+    // 判断当前页是否为书签页
     isBookmark(isBookmark) {
       if (isBookmark) {
         this.color = 'orange'
@@ -70,6 +76,7 @@ export default {
     }
   },
   methods: {
+    // 添加书签
     addBookmark() {
       this.bookmark = getBookmark(this.fileName)
       if (!this.bookmark) {
@@ -89,6 +96,7 @@ export default {
         saveBookmark(this.fileName, this.bookmark)
       })
     },
+    // 删除书签
     removeBookmark() {
       const currentLocation = this.currentBook.rendition.currentLocation()
       const cfi = currentLocation.start.cfi
@@ -98,6 +106,7 @@ export default {
         this.setIsBookmark(false)
       }
     },
+    // 重置
     restore() {
       setTimeout(() => {
         this.$refs.iconDown.style.transform = 'rotate(0deg)'
@@ -110,6 +119,7 @@ export default {
         this.removeBookmark()
       }
     },
+    // 状态一
     beforeHeight() {
       const iconDown = this.$refs.iconDown
       if (iconDown.style.transform === 'rotate(180deg)') {
@@ -125,10 +135,12 @@ export default {
         this.isFixed = false
       }
     },
+    // 状态二
     beforeThreshold(v) {
       this.$refs.bookmark.style.top = `${-v}px`
       this.beforeHeight()
     },
+    // 状态三
     afterThreshold(v) {
       if (v >= 70) {
         v = 100

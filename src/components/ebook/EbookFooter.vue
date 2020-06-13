@@ -1,4 +1,5 @@
 <template>
+<!-- 阅读器底部进度 -->
   <div class="ebook-footer">
     <span class="ebook-footer-text">{{this.progress ?  this.progress + '%' : '阅读进度加载中...'}}</span>
     <!-- <span class="ebook-footer-text">{{this.paginate}}</span> -->

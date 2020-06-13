@@ -1,4 +1,5 @@
 <template>
+<!-- 阅读器标题栏 -->
   <transition name="slide-down">
     <div class="title-wrapper" v-show="menuVisible">
       <div class="left">
@@ -24,6 +25,7 @@ import { ebookMixin } from '../../utils/mixin'
 export default {
   mixins: [ebookMixin],
   methods: {
+    // 返回上一页
     back() {
       this.$router.go(-1)
     },

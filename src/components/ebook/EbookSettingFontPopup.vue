@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { FONT_FAMILY } from '../../utils/book'
+import { FONT_FAMILY } from '../../utils/book'// 引入字体列表
 import { ebookMixin } from '../../utils/mixin'
 import { saveFontFamily } from '../../utils/localStorage'
 export default {
@@ -38,9 +38,10 @@ export default {
       return this.defaultFontFamily === item.font
     },
     setFontFamily(font) {
-      this.setDefaultFontFamily(font)
+      this.setDefaultFontFamily(font)// 传入点击的字体
       saveFontFamily(this.fileName, font)
       if (font === 'Default') {
+        // 默认字体
         this.currentBook.rendition.themes.font('Times New Roman')
       } else {
         this.currentBook.rendition.themes.font(font)

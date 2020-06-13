@@ -1,4 +1,5 @@
 <template>
+<!-- 书签组件 -->
   <div class="ebook-slide-bookmark">
     <div class="slide-bookmark-title">{{$t('book.bookmark')}} · {{bookmark ? bookmark.length : 0}}</div>
     <scroll class="slide-bookmark-list" :top="48" :bottom="48">

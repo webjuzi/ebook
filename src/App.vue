@@ -7,6 +7,7 @@
 <script>
 export default {
 }
+// 设置1rem = 屏幕宽度 / 10, 并且上限为50px
 document.addEventListener('DOMContentLoaded', () => {
   const html = document.querySelector('html')
   let fontSize = window.innerWidth / 10

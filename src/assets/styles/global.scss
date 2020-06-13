@@ -1,5 +1,5 @@
-@import "./reset";
-@import "./mixin";
-@import "./transition";
+@import "./reset";// 初始化配置
+@import "./mixin";// 配置常用的全局样式
+@import "./transition";// 过渡动画
 @import "./home";
 @import "flapCard"
