@@ -1,4 +1,5 @@
 <template>
+<!-- 一般图书样式 -->
   <div class="shelf-item-book">
     <img :src="data.cover" alt="" class="shelf-item-book-cover">
   </div>

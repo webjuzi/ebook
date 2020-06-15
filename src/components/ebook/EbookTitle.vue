@@ -30,10 +30,10 @@ export default {
       this.$router.go(-1)
     },
     shelf() {
-      this.$router.push('/store/home')
+      this.$router.push('/store/shelf')
     },
     cart() {
-      this.$router.push('/store/shelf')
+      this.$router.push('/store/home')
     }
   }
 }

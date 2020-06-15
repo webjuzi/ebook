@@ -1,5 +1,7 @@
 <template>
+<!-- 书城-分类列表 -->
   <div class="book-list-wrapper">
+    <!-- 分类标题 -->
     <detail-title :title="title"
                   :showShelf="true"
                   @back="back"
@@ -29,6 +31,7 @@
       Featured
     },
     computed: {
+      // 标题信息
       title() {
         if (this.list) {
           return this.total && this.$t('home.allBook').replace('$1', this.totalNumber)
@@ -36,6 +39,7 @@
           return null
         }
       },
+      // 计算图书数量
       totalNumber() {
         let num = 0
         Object.keys(this.list).forEach(key => {
@@ -51,12 +55,15 @@
       }
     },
     methods: {
+      // 获取分类名称
       getCategoryText(key) {
         return `${categoryText(categoryList[key], this)}(${this.list[key].length})`
       },
+      // 返回
       back() {
         this.$router.go(-1)
       },
+      // 滑动偏移量
       onScroll(offsetY) {
         if (offsetY > realPx(42)) {
           this.$refs.title.showShadow()
@@ -64,6 +71,7 @@
           this.$refs.title.hideShadow()
         }
       },
+      // 获取列表数据
       getList() {
         list().then(response => {
           this.list = response.data.data

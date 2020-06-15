@@ -1,4 +1,5 @@
 <template>
+<!-- 书城-随机列表 -->
   <div class="category-book">
     <title-view :label="categoryText(data.category)" :btn="$t('home.seeAll')" @onClick="showBookCategory"></title-view>
     <div class="category-book-list">
@@ -29,6 +30,7 @@
       data: Object
     },
     methods: {
+      // 查看全部
       showBookCategory() {
         this.$router.push({
           path: '/store/list',
@@ -38,6 +40,7 @@
           }
         })
       },
+      // 分类名称
       categoryText(category) {
         return categoryText(category, this)
       }

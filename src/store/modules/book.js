@@ -17,7 +17,7 @@ const book = {
     metadata: null, //
     paginate: '', //
     pagelist: null, //
-    offsetY: 0, //
+    offsetY: 0, // 滑动的偏移量
     isBookmark: null //
   },
   mutations: {

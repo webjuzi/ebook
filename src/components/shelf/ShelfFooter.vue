@@ -1,4 +1,5 @@
 <template>
+<!-- 书架底部菜单 -->
   <div>
     <div class="shelf-tooter" v-show="isEditMode">
       <div class="shelf-footer-tab-wrapper" v-for="item in tabs" :key="item.index" @click="onTabClick(item)">

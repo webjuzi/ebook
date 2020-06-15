@@ -1,4 +1,5 @@
 <template>
+<!-- 根据type显示不同内容 -->
   <div class="shelf-item" :class="{'shelf-item-shadow' : data.type === 1 || data.type ===2}" @click="onItemClick">
     <component :is="item" :data="data" class="shelf-item-comp" :class="{'is-edit': isEditMode && data.type === 2}"></component>
     <div class="icon-selected" :class="{'is-selected': data.selected}" v-show="isEditMode && data.type === 1"></div>

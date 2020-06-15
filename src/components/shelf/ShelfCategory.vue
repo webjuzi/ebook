@@ -1,4 +1,5 @@
 <template>
+<!-- 分组图书样式 -->
   <div class="shelf-item-category">
     <div class="shelf-item-category-list">
       <div class="shelf-item-category-item" v-for="(item, index) in data.itemList" :key="index">

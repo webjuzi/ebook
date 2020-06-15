@@ -1,4 +1,5 @@
 <template>
+<!-- 随机推荐动画 -->
   <div class="flap-card-wrapper" v-show="flapCardVisible">
     <div class="flap-card-bg" :class="{'animation': runFlapCardAnimation}" v-show="runFlapCardAnimation">
       <div class="flap-card" v-for="(item, index) in flapCardList" :key="index" :style="{zIndex: item.zIndex}">

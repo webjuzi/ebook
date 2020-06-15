@@ -1,4 +1,5 @@
 <template>
+<!-- 书城-热门推荐 -->
   <div class="recommend">
     <title-view :label="$t('home.recommend')" :btn="$t('home.seeAll')"></title-view>
     <div class="recommend-list">

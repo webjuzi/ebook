@@ -1,8 +1,10 @@
 <template>
+<!-- 书架列表 -->
   <div class="shelf-list" :style="{top: shelfListTop}">
     <div class="shelf-list-notice">
       <div class="shelf-list-notice-bg">{{$t('shelf.notice')}}</div>
     </div>
+    <!-- 循环显示图书 -->
     <div v-for="item in data" :key="item.id" class="shelf-list-item-wrapper" :style="{width: width}">
       <shelf-item :data="item" :style="{height: height}"></shelf-item>
       <div class="shelf-list-title-wrapper">

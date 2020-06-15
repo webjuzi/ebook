@@ -1,4 +1,5 @@
 <template>
+<!-- 根据传递参数显示搜索数据 -->
   <div>
     <div class="hot-search-title">
       <span class="label">{{label}}</span>
@@ -23,6 +24,7 @@
   import { realPx } from '@/utils/utils'
 
   export default {
+    // 接收数据
     props: {
       label: String,
       btn: String,

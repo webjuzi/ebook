@@ -1,8 +1,11 @@
 <template>
+<!-- 搜索列表页面 -->
   <transition name="hot-search-move">
+    <!-- 显示热门搜索数据 -->
     <scroll class="hot-search-warpper" :top="52" @onScroll="onScroll" ref="scroll">
       <hot-search :label="$t('home.hotSearch')" :btn="$t('home.change')" :hotSearch="searchList.hotSearch"></hot-search>
       <div class="line"></div>
+      <!-- 显示搜索历史数据 -->
       <hot-search :label="$t('home.historySearch')" :btn="$t('home.clear')" :hotSearch="searchList.historySearch"></hot-search>
     </scroll>
   </transition>

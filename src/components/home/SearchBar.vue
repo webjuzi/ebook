@@ -1,4 +1,5 @@
 <template>
+<!-- 书城顶部搜索组件 -->
   <div>
     <div class="search-bar" :class="{'hide-title': !titleVisible, 'hide-shadow': !shadowVisible}">
       <transition name="title-move">
@@ -14,6 +15,7 @@
       <div class="title-icon-back-rapper" :class="{'hide-title': !titleVisible}" @click="back">
         <span class="icon-back icon"></span>
       </div>
+      <!-- 搜索框 -->
       <div class="search-bar-input-wrapper" :class="{'hide-title': !titleVisible}">
         <div class="search-bar-blank" :class="{'hide-title': !titleVisible}"></div>
         <div class="search-bar-input">
@@ -23,6 +25,7 @@
         </div>
       </div>
     </div>
+    <!-- 搜索列表页 -->
     <hot-search-list v-show="hotSearchVisible" ref="hotSearch"></hot-search-list>
   </div>
 </template>
@@ -44,6 +47,7 @@ export default {
     }
   },
   watch: {
+    // 监听屏幕滑动的偏移量
     offsetY(offsetY) {
       if (offsetY > 0) {
         this.hideTitle()
@@ -53,6 +57,7 @@ export default {
         this.hideShadow()
       }
     },
+    // 搜索列表页的滑动偏移量
     hotSearchOffsetY(offsetY) {
       if (offsetY > 0) {
         this.showShadow()
@@ -62,6 +67,7 @@ export default {
     }
   },
   methods: {
+    // 跳转到搜索列表页
     search() {
       this.$router.push({
         path: '/store/list',
@@ -70,9 +76,11 @@ export default {
         }
       })
     },
+    // 显示随机图书推荐
     showFlapCard() {
       this.setFlapCardVisible(true)
     },
+    // 返回按钮
     back() {
       if (this.offsetY > 0) {
         this.showShadow()
@@ -85,6 +93,7 @@ export default {
         this.$router.push('/store/shelf')
       }
     },
+    // 隐藏搜索列表页面
     hideHotSearch() {
       this.hotSearchVisible = false
       if (this.offsetY > 0) {
@@ -95,6 +104,7 @@ export default {
         this.hideShadow()
       }
     },
+    // 显示搜索列表页面
     showHotSearch() {
       this.hideTitle()
       this.hotSearchVisible = true
@@ -103,15 +113,19 @@ export default {
         this.$refs.hotSearch.reset()
       })
     },
+    // 隐藏标题
     hideTitle() {
       this.titleVisible = false
     },
+    // 显示标题
     showTitle() {
       this.titleVisible = true
     },
+    // 隐藏阴影
     hideShadow() {
       this.shadowVisible = false
     },
+    // 显示阴影
     showShadow() {
       this.shadowVisible = true
     }

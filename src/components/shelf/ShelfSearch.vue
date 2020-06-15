@@ -1,4 +1,5 @@
 <template>
+<!-- 书架搜索框 -->
   <div class="shelf-search-wrapper" :class="{'search-top': ifInputClicked, 'hide-shadow' : ifHideShadow}">
     <div class="shelf-search" :class="{'search-top': ifInputClicked}">
       <div class="search-wrapper">
@@ -178,8 +179,6 @@ export default {
         font-size: px2rem(22);
         color: #666;
       }
-      .icon-cn{}
-      .icon-en{}
     }
     .cancel-btn-wrapper{
       @include center;

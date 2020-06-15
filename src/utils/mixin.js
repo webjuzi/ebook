@@ -4,6 +4,7 @@ import { saveLocation, getBookmark, getBookShelf, saveBookShelf } from './localS
 import { gotoBookDetail, appendAddToShelf } from './store'
 import { shelf } from '../api/store'
 
+// 阅读器
 export const ebookMixin = {
   computed: {
     ...mapGetters([
@@ -131,7 +132,7 @@ export const ebookMixin = {
     }
   }
 }
-
+// 书城
 export const storeHomeMixin = {
   computed: {
     ...mapGetters([
@@ -152,6 +153,7 @@ export const storeHomeMixin = {
   }
 }
 
+// 书架
 export const storeShelfMixin = {
   computed: {
     ...mapGetters([

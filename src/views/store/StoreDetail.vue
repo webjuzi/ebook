@@ -1,4 +1,5 @@
 <template>
+<!-- 图书详情 -->
   <div class="book-detail">
     <detail-title @back="back"
                   :showShelf="true"

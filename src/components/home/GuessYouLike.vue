@@ -1,5 +1,7 @@
 <template>
+<!-- 书城-猜你喜欢 -->
   <div class="guess-you-like">
+    <!-- 通用标题组件 -->
     <title-view :label="$t('home.guessYouLike')" :btn="$t('home.change')" @onClick="change"></title-view>
     <div class="guess-you-like-list">
       <div class="guess-you-like-item" v-for="(item, index) in showData" :key="index" @click="showBookDetail(item)">
@@ -30,7 +32,14 @@
     props: {
       data: Array
     },
+    data() {
+      return {
+        index: 0,
+        total: 0
+      }
+    },
     watch: {
+      // 随机从数据库获取的N本书
       data(v) {
         this.total = v.length / 3
       }
@@ -39,6 +48,7 @@
       width() {
         return window.innerWidth - realPx(20) - realPx(60) + 'px'
       },
+      // 在随机获取的图书中返回三本书用来显示
       showData() {
         if (this.data) {
           return [
@@ -51,13 +61,8 @@
         }
       }
     },
-    data() {
-      return {
-        index: 0,
-        total: 0
-      }
-    },
     methods: {
+      // 点击换一批的时候回通过增加index从而更换显示的书籍
       change() {
         if (this.index + 1 >= this.total) {
           this.index = 0
@@ -65,6 +70,7 @@
           this.index++
         }
       },
+      // 随机生成猜你喜欢作者下面的信息
       resultText(item) {
         if (item && item.type && item.result) {
           switch (item.type) {

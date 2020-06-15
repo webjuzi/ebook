@@ -1,10 +1,14 @@
 <template>
+<!-- 书架 -->
   <div class="store-shelf">
     <shelf-title :title="$t('shelf.title')"></shelf-title>
     <scroll :top="0" :bottom="scrollBottom" class="store-shelf-scroll-wrapper" @onScroll="onScroll" ref="scroll">
+      <!-- 书架搜索框 -->
       <shelf-search></shelf-search>
+      <!-- 书架列表 -->
       <shelf-list :data="shelfList"></shelf-list>
     </scroll>
+    <!-- 书架底部菜单 -->
     <shelf-footer></shelf-footer>
   </div>
 </template>

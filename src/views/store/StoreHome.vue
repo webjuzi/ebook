@@ -1,17 +1,26 @@
 <template>
+<!-- 书城首页 -->
   <div class="store-home">
+    <!-- 书城顶部搜索组件 -->
     <search-bar></search-bar>
+    <!-- 随机推荐组件 -->
     <flap-card :data="random"></flap-card>
     <scroll :top="scrollTop" @onScroll="onScroll" ref="scroll">
+      <!-- 首页焦点图 -->
       <div class="banner-wrapper">
         <img :src="banner" class="banner-img">
       </div>
+      <!-- 猜你喜欢 -->
       <guess-you-like :data="guessYouLike"></guess-you-like>
+      <!-- 热门推荐 -->
       <recommend :data="recommend" class="recommend"></recommend>
+      <!-- 精选 -->
       <featured :data="featured" :titleText="($t('home.featured'))" :btnText="($t('home.seeAll'))" class="featured"></featured>
+      <!-- 随机列表 -->
       <div class="category-list-wrapper" v-for="(item, index) in categoryList" :key="index">
         <category-book :data="item"></category-book>
       </div>
+      <!-- 分类 -->
       <category :data="categories" class="category"></category>
     </scroll>
   </div>
@@ -53,8 +62,10 @@ export default {
     }
   },
   methods: {
+    // 滑动偏移量
     onScroll(offsetY) {
       this.setOffsetY(offsetY)
+      // 往下滑动的时候变换滑动组件的top值
       if (offsetY > 0) {
         this.scrollTop = 54
       } else {
@@ -64,6 +75,7 @@ export default {
     }
   },
   mounted() {
+    // 获取首页数据
     home().then(response => {
       if (response && response.status === 200) {
         const data = response.data
